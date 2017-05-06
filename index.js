@@ -21,26 +21,6 @@ if(!verifyToken) {
     exit(1);
 }
 
-/*function sendTextMessage(sender, text) {
-    let messageData = { text:text }
-    console.log("making request...");
-    request({
-	    url: 'https://graph.facebook.com/v2.6/me/messages',
-	    qs: {access_token:pageToken},
-	    method: 'POST',
-		json: {
-		    recipient: {id:sender},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-		    console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-		    console.log('Error: ', response.body.error)
-	    }
-    })
-}*/
-
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -85,7 +65,7 @@ function receivedMessage(event) {
     var message = event.message;
 
     console.log("Received message for user %d and page %d at %d with message:", senderID, recipientID, timeOfMessage);
-    console.log(JSON.stringify(message));
+    // console.log(JSON.stringify(message));
 
     var messageId = message.mid;
 
