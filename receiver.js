@@ -23,9 +23,10 @@ function getMenu(day, turn) {
                 console.log(result[j][day]);
         }
         else if (day == 'semana') {
-            for (var j = 2; j < 10; j++) {
-                for (var k = 1; k < 6; k++)
-                    console.log(result[j][k]);
+            for (var k = 1; k < 6; k++) {
+                for (var j = 2; j < 10; j++) {
+                        console.log(result[j][k]);
+                }
             }
         }
     })
