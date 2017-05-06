@@ -54,6 +54,44 @@ function sendTextMessage(recipientId, messageText) {
     callSendAPI(messageData);
 }
 
+function sendMenuMessage(recipientId, messageText, timeOfMessage) {
+
+    console.log(timeOfMessage);
+    var message_data = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: [{
+                        title: "Cardapio",
+                        subtitle: "Cardapio do Bandejão da UNIRIO",
+                        buttons: [{
+                            type: 'postback',
+                            title: 'Hoje',
+                            payload: 'cardapio-hoje'
+                        },
+                        {
+                            type: 'postback',
+                            title: 'Amanhã',
+                            payload: 'cardapio-amanhã'
+                        },
+                        {
+                            type: 'postback',
+                            title: 'Semana',
+                            payload: 'cardapio-semana'
+                        }]
+                    }]
+                }
+            }
+        }
+    };
+    callSendAPI(message_data);
+}
+
 function sendGenericMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
@@ -123,6 +161,10 @@ function receivedMessage(event) {
             case 'generic':
                 sendGenericMessage(senderID);
                 break;
+            
+            case 'cardapio':
+                sendMenuMessage(senderID, messageText, timeOfMessage);
+                break;
 
             default:
                 sendTextMessage(senderID, messageText);
@@ -130,6 +172,22 @@ function receivedMessage(event) {
     } else if (messageAttachments) {
         sendTextMessage(senderID, "Message with attachment received");
     }
+}
+
+function receivedPostback(event) {
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfPostback = event.timestamp;
+
+  // The 'payload' param is a developer-defined field which is set in a postback 
+  // button for Structured Messages. 
+  var payload = event.postback.payload;
+
+  console.log("Received postback for user %d and page %d with payload '%s' " + "at %d", senderID, recipientID, payload, timeOfPostback);
+
+  // When a postback is called, we'll send a message back to the sender to 
+  // let them know it was successful
+  sendTextMessage(senderID, "Postback called");
 }
 
 app.get('/webhook', (req, res) => {
@@ -155,6 +213,9 @@ app.post('/webhook', function (req, res) {
                 if (event.message) {
                     receivedMessage(event);
                 } 
+                else if (event.postback) {
+                    receivedPostback(event);
+                }
                 else {
                     console.log("Webhook received unknown event: ", event);
                 }
