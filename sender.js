@@ -120,7 +120,7 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
             attachment: {
                 type: "template",
                 payload: {
-                    template_type: "generic",/
+                    template_type: "generic",
                     elements: [{
                         title: "Cardapio",
                         subtitle: "Cardapio do Bandejão da UNIRIO",
