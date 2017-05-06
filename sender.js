@@ -1,5 +1,8 @@
 const request = require('request');
+const pg = require('pg');
 const pageToken = process.env.PAGETOKEN;
+
+pg.defaults.ssl = true;
 
 function callSendAPI(messageData) {
     request({
@@ -117,6 +120,36 @@ function sendGenericMessage(recipientId, messageText) {
   };  
 
   callSendAPI(messageData);
+}
+
+function sendTodayMessage(senderID, timeOfPostback) {
+    pg.connect(process.env.DATABASE_URL, (err, clint) => {
+        if(err)
+            throw err;
+
+        console.log('Connected to Postegres on SendTodayMessage');
+
+    });
+}
+
+function sendTomorrowMessage(senderID, timeOfPostback) {
+    pg.connect(process.env.DATABASE_URL, (err, clint) => {
+        if(err)
+            throw err;
+
+        console.log('Connected to Postegres on SendTodayMessage');
+
+    });
+}
+
+function sendRestOfWeekMessage(senderID, timeOfPostback) {
+    pg.connect(process.env.DATABASE_URL, (err, clint) => {
+        if(err)
+            throw err;
+
+        console.log('Connected to Postegres on SendTodayMessage');
+
+    });
 }
 
 

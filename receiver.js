@@ -15,6 +15,7 @@ function receivedPostback(event) {
             break;
         case 'button-cardapio-hoje':
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
+            // sendHandler.sendTodayMessage(SenderID, timeOfPostback);
             break;
         case 'button-cardapio-amanha':
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
