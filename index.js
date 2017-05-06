@@ -2,8 +2,8 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 
-const receiveHandler = require('receiver.js');
-const sendHandler = require('sender.js')
+const receiveHandler = require('receiver');
+const sendHandler = require('sender')
 
 const app = express();
 
