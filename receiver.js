@@ -10,6 +10,9 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
+        case 'get-started':
+            sendHandler.sendMenuMessage(senderID);
+            break;
         case 'button-cardapio-hoje':
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
             break;
