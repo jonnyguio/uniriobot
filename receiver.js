@@ -1,4 +1,5 @@
-const sendHandler = require('./sender')
+const sendHandler = require('./sender');
+const csv = require('csvtojson');
 
 function getMenu(day, turn) {
     result = []
@@ -13,15 +14,17 @@ function getMenu(day, turn) {
     })
     .on('done',(error)=>{
         if (turn === 'almoco') {
-            if (day != 'semana') {
-                for (var j = 2; j < 10; j++)
-                    console.log(result[j][day]);
-            }
+            for (var j = 2; j < 10; j++)
+                console.log(result[j][day]);
         }
         else if (turn === 'jantar') {
-            if (day != 'semana') {
-                for (var j = 12; j < 20; j++)
-                    console.log(result[j][day]);
+            for (var j = 12; j < 20; j++)
+                console.log(result[j][day]);
+        }
+        else if (day == 'semana') {
+            for (var j = 2; j < 10; j++) {
+                for (var k = 1; j < 6; j++)
+                    console.log(result[j][k]);
             }
         }
     })
@@ -57,8 +60,7 @@ function receivedPostback(event) {
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
             break;
         case 'button-cardapio-semana':
-            getMenu(dow, 'almoço');
-            getMenu(dow, 'jantar');
+            getMenu('semana');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio da semana");
             break;
         default:
