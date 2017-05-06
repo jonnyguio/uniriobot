@@ -1,4 +1,4 @@
-const sendHandler = require('sender.js')
+const sendHandler = require('./sender')
 
 function receivedPostback(event) {
     var senderID = event.sender.id;
