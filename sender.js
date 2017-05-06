@@ -1,6 +1,16 @@
 const request = require('request');
 const pageToken = process.env.PAGETOKEN;
 
+const DOWS = {
+    SUNDAY: 0,
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 3,
+    THURSDAY: 4,
+    FRIDAY: 5,    
+    SATURDAY: 6
+}
+
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -37,6 +47,71 @@ function sendTextMessage(recipientId, messageText) {
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {
 
     console.log(timeOfMessage);
+    buttonsAll = [
+        {
+        type: 'postback',
+        title: 'Hoje',
+        payload: 'button-cardapio-hoje'
+        },
+        {
+            type: 'postback',
+            title: 'Amanhã',
+            payload: 'button-cardapio-amanha'
+        },
+        {
+            type: 'postback',
+            title: 'Semana',
+            payload: 'button-cardapio-semana'
+        }
+    ];
+    buttonsFriday = [
+        {
+            type: 'postback',
+            title: 'Hoje',
+            payload: 'button-cardapio-hoje'
+        },
+        {
+            type: 'postback',
+            title: 'Semana',
+            payload: 'button-cardapio-semana'
+        }
+    ];
+    buttonsSaturday = [
+        {
+            type: 'postback',
+            title: 'Semana',
+            payload: 'button-cardapio-semana'
+        }
+    ];
+    buttonsSundayAndAfterDinner = [
+        {
+            type: 'postback',
+            title: 'Amanhã',
+            payload: 'button-cardapio-amanha'
+        },
+        {
+            type: 'postback',
+            title: 'Semana',
+            payload: 'button-cardapio-semana'
+        }
+    ];
+
+    var d = new Date()
+    var dow = d.getDay(); // 0 = sunday
+    var usedButton;
+
+    if (dow == DOWS.SATURDAY) {
+        usedButton = buttonsSaturday;
+    }
+    else if (dows == DOWS.FRIDAY) {
+        usedButton = buttonsFriday;
+    }
+    else if (dows == DOWS.SUNDAY) {
+        usedButton = buttonsSundayAndAfterDinner;
+    }
+    else
+        usedButton = buttonsAll;
+
     var message_data = {
         recipient: {
             id: recipientId
@@ -49,21 +124,7 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
                     elements: [{
                         title: "Cardapio",
                         subtitle: "Cardapio do Bandejão da UNIRIO",
-                        buttons: [{
-                            type: 'postback',
-                            title: 'Hoje',
-                            payload: 'button-cardapio-hoje'
-                        },
-                        {
-                            type: 'postback',
-                            title: 'Amanhã',
-                            payload: 'button-cardapio-amanha'
-                        },
-                        {
-                            type: 'postback',
-                            title: 'Semana',
-                            payload: 'button-cardapio-semana'
-                        }]
+                        buttons: usedButton
                     }]
                 }
             }
