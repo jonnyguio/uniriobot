@@ -1,5 +1,33 @@
 const sendHandler = require('./sender')
 
+function getMenu(day, turn) {
+    result = []
+    var i = 0;
+    csv()
+    .fromStream(request.get('https://docs.google.com/spreadsheets/d/1bPcJ7WzXUbgnBrQTFFBOJWKP_WJPJpt0tICD0b6X-fQ/pub?gid=0&single=true&output=csv'))
+    .on('csv',(csvRow)=>{
+        // console.log(csvRow);
+        // csvRow is an array 
+        result[i] = csvRow;
+        i++;
+    })
+    .on('done',(error)=>{
+        if (turn === 'almoco') {
+            if (day != 'semana') {
+                for (var j = 2; j < 10; j++)
+                    console.log(result[j][day]);
+            }
+        }
+        else if (turn === 'jantar') {
+            if (day != 'semana') {
+                for (var j = 12; j < 20; j++)
+                    console.log(result[j][day]);
+            }
+        }
+    })
+
+}
+
 function receivedPostback(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -9,17 +37,28 @@ function receivedPostback(event) {
     // button for Structured Messages. 
     var payload = event.postback.payload;
 
+    var d = new Date()
+    var dow = d.getDay(); // 0 = sunday
+    var hour = d.getHours();
+
     switch (payload) {
         case 'get-started':
             sendHandler.sendMenuMessage(senderID);
             break;
         case 'button-cardapio-hoje':
+            if (hour < 15)
+                getMenu(dow, 'almoço');
+            getMenu(dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
             break;
         case 'button-cardapio-amanha':
+            getMenu(dow, 'almoço');
+            getMenu(dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
             break;
         case 'button-cardapio-semana':
+            getMenu(dow, 'almoço');
+            getMenu(dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio da semana");
             break;
         default:

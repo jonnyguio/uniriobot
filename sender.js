@@ -98,6 +98,7 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
 
     var d = new Date()
     var dow = d.getDay(); // 0 = sunday
+    var hour = d.getHours();
     var usedButton;
 
     if (dow == DOWS.SATURDAY) {
@@ -106,12 +107,11 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
     else if (dows == DOWS.FRIDAY) {
         usedButton = buttonsFriday;
     }
-    else if (dows == DOWS.SUNDAY) {
+    else if (dows == DOWS.SUNDAY || hour > 19) {
         usedButton = buttonsSundayAndAfterDinner;
     }
     else
         usedButton = buttonsAll;
-
     var message_data = {
         recipient: {
             id: recipientId
@@ -120,7 +120,7 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
             attachment: {
                 type: "template",
                 payload: {
-                    template_type: "generic",
+                    template_type: "generic",/
                     elements: [{
                         title: "Cardapio",
                         subtitle: "Cardapio do Bandejão da UNIRIO",
