@@ -99,6 +99,7 @@ function sendRoomsMessage(senderID) {
             parsedBody = JSON.parse(body);
             studentFName += parsedBody["first_name"];
             studentLName += parsedBody["last_name"];
+            sendTextMessage(senderID, 'Recuperando dados...');
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
                 console.log('got everyone name');
@@ -118,7 +119,7 @@ function sendRoomsMessage(senderID) {
                 function (err, res, body) {
                     console.log('got grades');
                     parsedBody = JSON.parse(body);
-                    sendString = []
+                    var sendString = []
                     var k = 0;
                     parsedBody["content"].forEach(function(element) {
                         sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
