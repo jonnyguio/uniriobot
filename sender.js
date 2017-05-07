@@ -25,8 +25,9 @@ function callSendAPI(messageData, callback) {
             var messageId = body.message_id;
 
             console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
-            callback();
-        } else {
+            if (callback) callback();
+        } 
+        else {
             console.error("Unable to send message.");
             console.error(response);
             console.error(error);
