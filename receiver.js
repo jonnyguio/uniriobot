@@ -55,10 +55,10 @@ function getMenu(senderID, day, turn) {
         else if (day == 'semana') {
             var sendString = [];
             for (var k = 0; k < 10; k += 2) {
-                sendString[k] = DOWS_NAMES[k] + '\n';
+                sendString[k] = DOWS_NAMES[k / 2 + 1] + '\n';
                 sendString[k] += '\nALMOÇO\n\n';
                 sendString[k] += formatSendMenu(result, k / 2 + 1, 0);
-                sendString[k+1] = DOWS_NAMES[k] + '\n';
+                sendString[k+1] = DOWS_NAMES[k / 2 + 1] + '\n';
                 sendString[k+1] += '\nJANTAR\n\n';
                 sendString[k+1] += formatSendMenu(result, k / 2 + 1, 10);
             }
