@@ -4,6 +4,7 @@ const removeAccents = require('diacritics').remove;
 const removePunctuation = require('remove-punctuation');
 const csv = require('csvtojson');
 const request = require('request');
+const staticMessages = require('./messages.js');
 
 const DOWS_NAMES = {
     0: "Domingo",
@@ -139,28 +140,23 @@ function receivedMessage(event) {
             sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
         else if(checkInicioCalendarioAcademico(messageText)) {
-            sendHandler.sendTextMessage(senderID, "Calendário");
+            sendHandler.sendTextMessage(senderID, staticMessages.calendario, 0);
         }
         else if(checkWifi(messageText)) {
-            response = [
-                "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!",
-                "WI-FI1: SENHA 1",
-                "WI-FI2: SENHA 2"
-            ];
-            sendHandler.sendTextMessage(senderID, response, 0); 
+            sendHandler.sendTextMessage(senderID, staticMessages.wifi, 0); 
             
         }
         else if(checkTrancamento(messageText)) {
-            sendHandler.sendTextMessage(senderID, "Bzzzom. O período de trancamento de disciplinas de 2017/1 vai de 20/03 a 31/03!");
+            sendHandler.sendTextMessage(senderID, staticMessages.trancamento, 0);
         }
         else if(checkInscricao(messageText)) {
-            sendHandler.sendTextMessage(senderID, "Bshawww. O período de inscrição em disciplinas de 2017/1 vai de 29/02 a 06/03!");
+            sendHandler.sendTextMessage(senderID, staticMessages.incricao, 0);
         }
         else if(checkBilheteUnico(messageText)) {
             sendHandler.sendBilheteUnico(senderID);
         }
         else {
-            sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
+            sendHandler.sendTextMessage(senderID, staticMessages.erro);
         }
         
 
@@ -205,7 +201,7 @@ function checkTrancamento(msg) {
 
 function checkInscricao(msg) {
     return containsTokens(msg, 'inscrição') &&
-     (constainsTokens('disciplinas') || containsTokens('disciplina')) ;
+     (containsTokens('disciplinas') || containsTokens('disciplina')) ;
 }
 
 function checkBilheteUnico(msg) {

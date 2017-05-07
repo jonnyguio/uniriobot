@@ -1,5 +1,7 @@
 const request = require('request');
 const pg = require('pg');
+const staticMessages = require('./messages.js');
+
 const pageToken = process.env.PAGETOKEN;
 
 const DOWS = {
@@ -181,8 +183,8 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
 function sendBilheteUnico(recipientID) {
     var button = {
         type: 'postback',
-        title: 'Cadastramento',
-        payload: 'button-bilhete-unico-cadastramento'
+        title: staticMessages["bilhete-unico"].button.label,
+        payload: staticMessages["bilhete-unico"].button.postback;
     };
 
     var message_data = {
@@ -196,7 +198,7 @@ function sendBilheteUnico(recipientID) {
                     template_type: "generic",
                     elements: [{
                         title: "Bilhete Único",
-                        subtitle: "O que deseja saber quanto ao Bilhete Único Universitário?",
+                        subtitle: staticMessages["bilhete-unico"].message,
                         buttons: button
                     }]
                 }
@@ -206,6 +208,8 @@ function sendBilheteUnico(recipientID) {
 
     callSendAPI(message_data);
 }
+
+
 
 function sendGenericMessage(recipientId, messageText) {
   var messageData = {
