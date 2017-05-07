@@ -94,7 +94,7 @@ function sendRoomsMessage(senderID) {
         function (error, response, body) {
             studentFName += body["first_name"]
             studentLName += body["last_name"];
-            request.get(API_UNIRIO_URL + TABELA_ALUNOS, 
+            request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
                 console.log(body);
                 console.log(body["content"]);
