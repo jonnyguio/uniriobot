@@ -91,7 +91,7 @@ function sendTextMessage(recipientId, messageText, elementID) {
     }
 }
 
-function sendRoomsMessage(senderID) {
+function sendGradeMessage(senderID) {
     var parsedBody, studentFName = '', studentLName = '', id_pessoa;
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
@@ -122,7 +122,12 @@ function sendRoomsMessage(senderID) {
                     var sendString = []
                     var k = 0;
                     parsedBody["content"].forEach(function(element) {
-                        sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                        if (element['media_final']) {
+                            sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                        }
+                        else {
+                            sendString[k] = element['nome_ativ_curric'] + 'não lançada ou duplicada.';
+                        }
                         k++;
                     });
                     sendTextMessage(senderID, sendString, 0);
@@ -333,7 +338,7 @@ module.exports = {
     sendTextMessage: sendTextMessage,
     sendGenericMessage: sendGenericMessage,
     sendMenuMessage: sendMenuMessage,
-    sendRoomsMessage: sendRoomsMessage,
+    sendGradeMessage: sendGradeMessage,
     sendBilheteUnico: sendBilheteUnico
 }
 
