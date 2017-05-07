@@ -203,6 +203,10 @@ function checkInscricao(msg) {
     return containsTokens(msg, 'inscrição', 'disciplinas');
 }
 
+function checkBilheteUnico(msg) {
+    return containsTokens(msg, 'bilhete', 'unico');
+}
+
 function containsTokens(str, ...tokens) {
     str = removePunctuation(removeAccents(str.toLowerCase()));
     words = str.split(' ');
