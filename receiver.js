@@ -188,7 +188,7 @@ function checkCardapio(msg) {
 }
 
 function checkInicioCalendarioAcademico(msg) {
-    return containsTokens(msg, 'calendario', 'academico');
+    return containsTokens(msg, 'calendario');
 }
 
 function checkWifi(msg) {

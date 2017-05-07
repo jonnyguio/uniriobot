@@ -171,6 +171,35 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
     callSendAPI(message_data);
 }
 
+function sendBilheteUnico(recipientID) {
+    var button = {
+        type: 'postback',
+        title: 'Cadastramento',
+        payload: 'button-bilhete-unico-cadastramento'
+    };
+
+    var message_data = {
+        recipient: {
+            id: recipientID
+        },
+        message: {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: [{
+                        title: "Bilhete Único",
+                        subtitle: "O que deseja saber quanto ao Bilhete Único Universitário?",
+                        buttons: button
+                    }]
+                }
+            }
+        }
+    };
+
+    callSendAPI(message_data);
+}
+
 function sendGenericMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
