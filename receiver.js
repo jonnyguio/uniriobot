@@ -199,11 +199,13 @@ function checkWifi(msg) {
 }
 
 function checkTrancamento(msg) {
-    return containsTokens(msg, 'trancamento', 'disciplinas');
+    return containsTokens(msg, 'trancamento') && 
+     (containsTokens(msg, 'disciplina') || containsTokens(msg, 'disciplinas'));
 }
 
 function checkInscricao(msg) {
-    return containsTokens(msg, 'inscrição', 'disciplinas');
+    return containsTokens(msg, 'inscrição') &&
+     (constainsTokens('disciplinas') || containsTokens('disciplina')) ;
 }
 
 function checkBilheteUnico(msg) {
