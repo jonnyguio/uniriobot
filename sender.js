@@ -1,6 +1,15 @@
 const request = require('request');
 const pg = require('pg');
+const staticMessages = require('./messages.js');
+const removePunctuation = require('remove-punctuation');
+const removeAccents = require('diacritics').remove;
 const pageToken = process.env.PAGETOKEN;
+
+const API_UNIRIO_URL = 'http://sistemas.unirio.br/api_teste/'
+const API_UNIRIO_KEY = '744b3341f5f629a9560992f42b086494d4cb0b7a1b56a77c08240b8be97c7cb7ff3342c7034f5172761239b2943253e3'
+const TABELA_ALUNOS = 'V_ALUNOS_ATIVOS';
+const TABELA_NOTAS = 'V_NOTAS_FINAIS_ALUNOS_DISCIPLINAS';
+
 
 const DOWS = {
     SUNDAY: 0,
@@ -24,8 +33,9 @@ function callSendAPI(messageData) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
 
-            console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
-        } else {
+            console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
+        } 
+        else {
             console.error("Unable to send message.");
             console.error(response);
             console.error(error);
@@ -33,17 +43,97 @@ function callSendAPI(messageData) {
     });  
 }
 
-function sendTextMessage(recipientId, messageText) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            text: messageText
-        }
-    };
+function sendTextMessage(recipientId, messageText, elementID) {
+    console.log(typeof(messageText));
+    if (typeof(messageText) == 'string') {
+        if (messageText.length > 0) {
+            var messageData = {
+                recipient: {
+                    id: recipientId
+                },
+                message: {
+                    text: messageText
+                }
+            };
 
-    callSendAPI(messageData);
+            callSendAPI(messageData);
+        }
+    }
+    else if (typeof(messageText) == 'object' && elementID < messageText.length) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText[elementID]
+            }
+        };
+
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: pageToken },
+            method: 'POST',
+            json: messageData
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var recipientId = body.recipient_id;
+                var messageId = body.message_id;
+
+                console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
+                sendTextMessage(recipientId, messageText, elementID + 1);
+            } 
+            else {
+                console.error("Unable to send message.");
+                console.error(response);
+                console.error(error);
+            }
+        });  
+    }
+}
+
+function sendGradeMessage(senderID) {
+    var parsedBody, studentFName = '', studentLName = '', id_pessoa, ano;
+    request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
+        function (error, response, body) {
+            parsedBody = JSON.parse(body);
+            studentFName += parsedBody["first_name"];
+            studentLName += parsedBody["last_name"];
+            sendTextMessage(senderID, staticMessages["aguardando"]);
+            request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
+            function (err, res, body) {
+                parsedBody = JSON.parse(body);
+                parsedBody["content"].every(function(element) {
+                    if (containsTokens(element["nome"], studentFName, studentLName)) {
+                        id_pessoa = element['id_pessoa'];
+                        return false;
+                    }
+                    return true;
+                }, this);
+                if (!id_pessoa) {
+                    id_pessoa = 14548
+                    ano = 2009
+                }
+                else {
+                    ano = (new Date()).getFullYear()
+                }
+                request.get(API_UNIRIO_URL + TABELA_NOTAS + '?API_KEY=' + API_UNIRIO_KEY + '&id_pessoa=' + id_pessoa + '&ano=2009',
+                function (err, res, body) {
+                    parsedBody = JSON.parse(body);
+                    var sendString = []
+                    var k = 0;
+                    parsedBody["content"].forEach(function(element) {
+                        if (element['media_final']) {
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ', média: ' + element['media_final'];
+                        }
+                        else {
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ' não lançada ou duplicada.';
+                        }
+                        k++;
+                    });
+                    sendTextMessage(senderID, sendString, 0);
+                });
+            });
+        });
 }
 
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {
@@ -106,10 +196,10 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
     if (dow == DOWS.SATURDAY) {
         usedButton = buttonsSaturday;
     }
-    else if (dows == DOWS.FRIDAY) {
+    else if (dow == DOWS.FRIDAY) {
         usedButton = buttonsFriday;
     }
-    else if (dows == DOWS.SUNDAY || hour > 19) {
+    else if (dow == DOWS.SUNDAY || hour > 19) {
         usedButton = buttonsSundayAndAfterDinner;
     }
     else
@@ -124,8 +214,8 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
                 payload: {
                     template_type: "generic",
                     elements: [{
-                        title: "Cardapio",
-                        subtitle: "Cardapio do Bandejão da UNIRIO",
+                        title: "Cardápio Bandejão UNIRIO",
+                        subtitle: "Ziom! Vejo que quer acessar o cardápio do bandejão. Qual dia você deseja acessar?",
                         buttons: usedButton
                     }]
                 }
@@ -134,6 +224,37 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
     };
     callSendAPI(message_data);
 }
+
+function sendBilheteUnico(recipientID) {
+    var button = [{
+        type: 'postback',
+        title: staticMessages["bilhete-unico"].button.label,
+        payload: staticMessages["bilhete-unico"].button.postback
+    }];
+
+    var message_data = {
+        recipient: {
+            id: recipientID
+        },
+        message: {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: [{
+                        title: "Bilhete Único",
+                        subtitle: staticMessages["bilhete-unico"].message,
+                        buttons: button
+                    }]
+                }
+            }
+        }
+    };
+
+    callSendAPI(message_data);
+}
+
+
 
 function sendGenericMessage(recipientId, messageText) {
   var messageData = {
@@ -216,5 +337,18 @@ function sendRestOfWeekMessage(senderID, timeOfPostback) {
 module.exports = {
     sendTextMessage: sendTextMessage,
     sendGenericMessage: sendGenericMessage,
-    sendMenuMessage: sendMenuMessage
+    sendMenuMessage: sendMenuMessage,
+    sendGradeMessage: sendGradeMessage,
+    sendBilheteUnico: sendBilheteUnico
+}
+
+function containsTokens(str, ...tokens) {
+    str = removePunctuation(removeAccents(str.toLowerCase()));
+    words = str.split(' ');
+    for(tok of tokens) {
+        if(!(words.includes(tok.toLowerCase())))
+            return false;
+    }
+
+    return true;
 }

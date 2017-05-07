@@ -1,8 +1,42 @@
-const sendHandler = require('./sender');
+
+const sendHandler = require('./sender')
+const removeAccents = require('diacritics').remove;
+const removePunctuation = require('remove-punctuation');
 const csv = require('csvtojson');
 const request = require('request');
+const staticMessages = require('./messages.js');
 
-function getMenu(day, turn) {
+const DOWS_NAMES = {
+    0: "Domingo",
+    1: "Segunda",
+    2: "Terça",
+    3: "Quarta",
+    4: "Quinta",
+    5: "Sexta",
+    6: "Sábado"
+}
+
+function formatSendMenu(data, day, turn) {
+    var send = '';
+    var meal = turn + 2;
+    send += 'Prato principal: '.toUpperCase() + data[meal][day] + '\n';
+    send += 'Prato vegetariano: '.toUpperCase() + data[meal + 1][day] + '\n';
+    send += 'Guarnição: '.toUpperCase() + data[meal + 2][day] + '\n';
+    
+    if (data[meal + 3][day].toLowerCase() != 'Arroz branco, feijão preto, arroz integral'.toLowerCase()) {
+        send += 'Arroz branco, feijão preto, arroz integral: '.toUpperCase() + data[meal + 3][day] + '\n';
+    }
+    else {
+        send += 'Arroz branco, feijão preto, arroz integral: '.toUpperCase() + 'Completo' + '\n';        
+    }
+
+    send += 'Vegetal folhoso: '.toUpperCase() + data[meal + 5][day] + '\n';
+    send += 'Vegetal não-folhoso: '.toUpperCase() + data[meal + 6][day] + '\n';
+    send += 'Refresco: '.toUpperCase() + data[meal + 7][day] + '\n';
+    return send;
+}
+
+function getMenu(senderID, day, turn) {
     result = []
     var i = 0;
     csv()
@@ -14,21 +48,30 @@ function getMenu(day, turn) {
         i++;
     })
     .on('done',(error)=>{
+        var sendString = ''
         if (turn === 'almoco') {
-            for (var j = 2; j < 10; j++)
-                console.log(result[j][day]);
+            // console.log(result[j][day]);
+            sendString = formatSendMenu(result, day, 0);
+            if (sendString.toLocaleLowerCase().includes('feriado'))
+                sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (turn === 'jantar') {
-            for (var j = 12; j < 20; j++)
-                console.log(result[j][day]);
+            sendString = formatSendMenu(result, day, 10);
+            if (sendString.toLocaleLowerCase().includes('feriado'))
+                sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (day == 'semana') {
-            for (var k = 1; k < 6; k++) {
-                for (var j = 2; j < 10; j++) {
-                        console.log(result[j][k]);
-                }
+            var sendString = [];
+            for (var k = 0; k < 10; k += 2) {
+                sendString[k] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + '-FEIRA ===\n';
+                sendString[k] += '= ALMOÇO = \n\n';
+                sendString[k] += formatSendMenu(result, k / 2 + 1, 0);
+                sendString[k+1] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + '-FEIRA ===\n';
+                sendString[k+1] += '= JANTAR = \n\n';
+                sendString[k+1] += formatSendMenu(result, k / 2 + 1, 10);
             }
         }
+        sendHandler.sendTextMessage(senderID, sendString, 0);
     })
 
 }
@@ -48,23 +91,26 @@ function receivedPostback(event) {
 
     switch (payload) {
         case 'get-started':
-            sendHandler.sendMenuMessage(senderID);
+            sendHandler.sendTextMessage(senderID, staticMessages.greeting);
             break;
         case 'button-cardapio-hoje':
             if (hour < 15)
-                getMenu(dow, 'almoço');
-            getMenu(dow, 'jantar');
+                getMenu(senderID, dow, 'almoço');
+            getMenu(senderID, dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
             // sendHandler.sendTodayMessage(SenderID, timeOfPostback);
             break;
         case 'button-cardapio-amanha':
-            getMenu(dow, 'almoço');
-            getMenu(dow, 'jantar');
+            getMenu(senderID, dow + 1, 'almoço');
+            getMenu(senderID, dow + 1, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
             break;
         case 'button-cardapio-semana':
-            getMenu('semana');
+            getMenu(senderID, 'semana');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio da semana");
+            break;
+        case staticMessages["bilhete-unico"].button.postback:
+            sendHandler.sendTextMessage(senderID, staticMessages["bilhete-unico"]["button"]["postback-message"], 0);
             break;
         default:
             sendHandler.sendTextMessage(senderID, "Postback called");
@@ -75,7 +121,6 @@ function receivedPostback(event) {
     // When a postback is called, we'll send a message back to the sender to 
     // let them know it was successful
 }
-
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -91,22 +136,54 @@ function receivedMessage(event) {
     var messageText = message.text;
     var messageAttachments = message.attachments;
 
-    if (messageText) {
-
+    if(messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-        switch (messageText) {
-            case 'generic':
-                sendHandler.sendGenericMessage(senderID);
-                break;
-            
-            case 'cardapio':
-                sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
-                break;
-
-            default:
-                sendHandler.sendTextMessage(senderID, messageText);
+        if(checkCardapio(messageText)) {
+            sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
+        else if(checkInicioCalendarioAcademico(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.calendario, 0);
+        }
+        else if(checkWifi(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.wifi, 0); 
+            
+        }
+        else if(checkTrancamento(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.trancamento, 0);
+        }
+        else if(checkInscricao(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.inscricao, 0);
+        }
+        else if(checkBilheteUnico(messageText)) {
+            sendHandler.sendBilheteUnico(senderID);
+        }
+        else if(checkGrades(messageText)) {
+            sendHandler.sendGradeMessage(senderID);
+        }
+        else if(checkAjuda(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.ajuda, 0);
+        }
+        else if(checkObrigado(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.obrigado);
+        }
+        else {
+            sendHandler.sendTextMessage(senderID, staticMessages.erro);
+        }
+        
+
+        // switch (messageText) {
+        //     case 'generic':
+        //         sendHandler.sendGenericMessage(senderID);
+        //         break;
+            
+        //     case 'cardapio':
+        //         sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
+        //         break;
+
+        //     default:
+        //         sendHandler.sendTextMessage(senderID, messageText);
+        // }
     } else if (messageAttachments) {
         sendHandler.sendTextMessage(senderID, "Message with attachment received");
     }
@@ -115,4 +192,55 @@ function receivedMessage(event) {
 module.exports = {
     receivedMessage: receivedMessage,
     receivedPostback: receivedPostback
+}
+
+function checkCardapio(msg) {
+    return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
+}
+
+function checkGrades(msg) {
+    return containsTokens(msg, 'notas') || containsTokens(msg, 'media') || containsTokens(msg, 'medias');
+}
+
+function checkInicioCalendarioAcademico(msg) {
+    return containsTokens(msg, 'calendario');
+}
+
+function checkWifi(msg) {
+    return removePunctuation(removeAccents(msg)).toLowerCase().replace(/[\-]/, '').includes('wifi');
+}
+
+function checkTrancamento(msg) {
+    return containsTokens(msg, 'trancamento');
+}
+
+function checkInscricao(msg) {
+    return containsTokens(msg, 'inscricao') &&
+     (containsTokens('disciplinas') || containsTokens('disciplina')) ;
+}
+
+function checkBilheteUnico(msg) {
+    return containsTokens(msg, 'bilhete', 'unico');
+}
+
+function checkAjuda(msg) {
+    return containsTokens(msg, 'ajuda');
+}
+
+function checkObrigado(msg) {
+    return containsTokens(msg, 'obrigado') || 
+           containsTokens(msg, 'valeu') ||
+           containsTokens(msg, 'vlw') ||
+           containsTokens(msg, 'obg');
+}
+
+function containsTokens(str, ...tokens) {
+    str = removePunctuation(removeAccents(str.toLowerCase()));
+    words = str.split(' ');
+    for(tok of tokens) {
+        if(!(words.includes(tok.toLowerCase())))
+            return false;
+    }
+
+    return true;
 }
