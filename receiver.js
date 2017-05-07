@@ -153,13 +153,16 @@ function receivedMessage(event) {
             sendHandler.sendTextMessage(senderID, staticMessages.trancamento, 0);
         }
         else if(checkInscricao(messageText)) {
-            sendHandler.sendTextMessage(senderID, staticMessages.incricao, 0);
+            sendHandler.sendTextMessage(senderID, staticMessages.inscricao, 0);
         }
         else if(checkBilheteUnico(messageText)) {
             sendHandler.sendBilheteUnico(senderID);
         }
         else if(checkGrades(messageText)) {
             sendHandler.sendGradeMessage(senderID);
+        }
+        else if(checkAjuda(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.ajuda, 0);
         }
         else {
             sendHandler.sendTextMessage(senderID, staticMessages.erro);
@@ -205,8 +208,7 @@ function checkWifi(msg) {
 }
 
 function checkTrancamento(msg) {
-    return containsTokens(msg, 'trancamento') && 
-     (containsTokens(msg, 'disciplina') || containsTokens(msg, 'disciplinas'));
+    return containsTokens(msg, 'trancamento');
 }
 
 function checkInscricao(msg) {
@@ -216,6 +218,10 @@ function checkInscricao(msg) {
 
 function checkBilheteUnico(msg) {
     return containsTokens(msg, 'bilhete', 'unico');
+}
+
+function checkAjuda(msg) {
+    return containsTokens(msg, 'ajuda');
 }
 
 function containsTokens(str, ...tokens) {
