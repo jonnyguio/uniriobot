@@ -169,7 +169,7 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function containsTokens(str, ...tokens) {
-    str = str.toLowerCase().removeAccents().removePunctuation();
+    str = removePunctuation(removeAccents(str.toLowerCase()));
     words = str.split(' ');
     for(tok of tokens) {
         if(!(words.includes(tok.toLowerCase())))
