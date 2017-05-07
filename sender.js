@@ -35,8 +35,7 @@ function callSendAPI(messageData) {
 }
 
 function sendTextMessage(recipientId, messageText, elementID) {
-    console.log(elementID);
-    console.log(messageText.length);
+    console.log(typeof(messageText));
     if (typeof(messageText) == 'string') {
         if (messageText.length > 0) {
             var messageData = {
