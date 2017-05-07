@@ -24,7 +24,7 @@ function callSendAPI(messageData) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
 
-            console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
+            console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
         } else {
             console.error("Unable to send message.");
             console.error(response);
@@ -34,18 +34,19 @@ function callSendAPI(messageData) {
 }
 
 function sendTextMessage(recipientId, messageText) {
-    for (var i = 0; i < messageText.length / 640; i++) {
-        var messageData = {
-            recipient: {
-                id: recipientId
-            },
-            message: {
-                text: messageText.substring(i * 640, (i + 1) * 640)
-            }
-        };
+    if messageText.length > 0
+        for (var i = 0; i < messageText.length / 640; i++) {
+            var messageData = {
+                recipient: {
+                    id: recipientId
+                },
+                message: {
+                    text: messageText.substring(i * 640, (i + 1) * 640)
+                }
+            };
 
-        callSendAPI(messageData);
-    }
+            callSendAPI(messageData);
+        }
 }
 
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {
