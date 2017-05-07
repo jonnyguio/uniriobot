@@ -18,13 +18,20 @@ const DOWS_NAMES = {
 function formatSendMenu(data, day, turn) {
     var send = '';
     var meal = turn + 2;
-    send += 'Prato principal:' + data[meal][day] + '\n';
-    send += 'Prato vegetariano:' + data[meal + 1][day] + '\n';
-    send += 'Guarnição:' + data[meal + 2][day] + '\n';
-    send += 'Arroz branco, feijão preto, arroz integral:' + data[meal + 3][day] + '\n';
-    send += 'Vegetal folhoso:' + data[meal + 5][day] + '\n';
-    send += 'Vegetal não-folhoso:' + data[meal + 6][day] + '\n';
-    send += 'Refresco:' + data[meal + 7][day] + '\n';
+    send += 'Prato principal: '.toUpperCase() + data[meal][day] + '\n';
+    send += 'Prato vegetariano: '.toUpperCase() + data[meal + 1][day] + '\n';
+    send += 'Guarnição: '.toUpperCase() + data[meal + 2][day] + '\n';
+    
+    if (data[meal + 3][day].toLowerCase() != 'Arroz branco, feijão preto, arroz integral'.toLowerCase()) {
+        send += 'Arroz branco, feijão preto, arroz integral: '.toUpperCase() + data[meal + 3][day] + '\n';
+    }
+    else {
+        send += 'Arroz branco, feijão preto, arroz integral: '.toUpperCase() + 'Completo' + '\n';        
+    }
+
+    send += 'Vegetal folhoso: '.toUpperCase() + data[meal + 5][day] + '\n';
+    send += 'Vegetal não-folhoso: '.toUpperCase() + data[meal + 6][day] + '\n';
+    send += 'Refresco: '.toUpperCase() + data[meal + 7][day] + '\n';
     return send;
 }
 
@@ -55,11 +62,11 @@ function getMenu(senderID, day, turn) {
         else if (day == 'semana') {
             var sendString = [];
             for (var k = 0; k < 10; k += 2) {
-                sendString[k] = DOWS_NAMES[k / 2 + 1] + '\n';
-                sendString[k] += '\nALMOÇO\n\n';
+                sendString[k] = '===' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + '-FEIRA ===';
+                sendString[k] += '= ALMOÇO = \n\n';
                 sendString[k] += formatSendMenu(result, k / 2 + 1, 0);
                 sendString[k+1] = DOWS_NAMES[k / 2 + 1] + '\n';
-                sendString[k+1] += '\nJANTAR\n\n';
+                sendString[k+1] += '= JANTAR = \n\n';
                 sendString[k+1] += formatSendMenu(result, k / 2 + 1, 10);
             }
         }
