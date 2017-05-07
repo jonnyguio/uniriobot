@@ -167,7 +167,7 @@ module.exports = {
 }
 
 function checkCardapio(msg) {
-    return removePunctuation(removeAccents(msg)).includes('cardapio');
+    return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
 }
 
 function checkInicioCalendarioAcademico(msg) {
@@ -175,7 +175,7 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function checkWifi(msg) {
-    return removePunctuation(removeAccents(msg)).includes('wi-fi');
+    return removePunctuation(removeAccents(msg)).toLowerCase().includes('wi-fi');
 }
 
 function containsTokens(str, ...tokens) {
