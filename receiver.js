@@ -15,6 +15,7 @@ const DOWS_NAMES = {
 function formatSendMenu(data, day, turn) {
     var send = '';
     var meal = turn + 2;
+    console.log(data[meal]);
     console.log(meal);
     send += 'Prato principal:' + data[meal][day] + '\n';
     send += 'Prato vegetariano:' + data[meal][day] + '\n';
@@ -54,7 +55,7 @@ function getMenu(senderID, day, turn) {
             for (var k = 1; k < 6; k++) {
                 sendString += DOWS_NAMES[k] + '\n';
                 sendString += '\nALMOÇO\n\n';
-                sendString += formatSendMenu(result, day, 10);
+                sendString += formatSendMenu(result, day, 0);
                 sendString += '\nJANTAR\n\n';
                 sendString += formatSendMenu(result, day, 10);
                 sendHandler.sendTextMessage(senderID, sendString);
