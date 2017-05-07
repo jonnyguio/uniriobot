@@ -34,16 +34,18 @@ function callSendAPI(messageData) {
 }
 
 function sendTextMessage(recipientId, messageText) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            text: messageText
-        }
-    };
+    for (var i = 0; i < messageText.length / 640; i++) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText.substring(i * 640, (i + 1) * 640)
+            }
+        };
 
-    callSendAPI(messageData);
+        callSendAPI(messageData);
+    }
 }
 
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {
