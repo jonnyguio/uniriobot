@@ -146,9 +146,19 @@ function receivedMessage(event) {
             sendHandler.sendTextMessage(senderID, "Calendário");
         }
         else if(checkWifi(messageText)) {
-            sendHandler.sendTextMessage(senderID, "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!"); 
-            sendHandler.sendTextMessage(senderID, "WI-FI1: SENHA 1");
-            sendHandler.sendTextMessage(senderID, "WI-FI2: SENHA 2");
+            response = [
+                "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!",
+                "WI-FI1: SENHA 1",
+                "WI-FI2: SENHA 2"
+            ];
+            sendHandler.sendTextMessage(senderID, response, 0); 
+            
+        }
+        else if(checkTrancamento(messageText)) {
+            sendHandler.sendTextMessage(senderID, "Bzzzom. O período de trancamento de disciplinas de 2017/1 vai de 20/03 a 31/03!");
+        }
+        else if(checkInscricao(messageText)) {
+            sendHandler.sendTextMessage(senderID, "Bshawww. O período de inscrição em disciplinas de 2017/1 vai de 29/02 a 06/03!");
         }
         else if(checkRooms(messageText)) {
             sendHandler.sendRoomsMessage(senderID);
@@ -193,7 +203,19 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function checkWifi(msg) {
-    return removePunctuation(removeAccents(msg)).toLowerCase().includes('wi-fi');
+    return removePunctuation(removeAccents(msg)).toLowerCase().replace(/[\-]/, '').includes('wifi');
+}
+
+function checkTrancamento(msg) {
+    return containsTokens(msg, 'trancamento', 'disciplinas');
+}
+
+function checkInscricao(msg) {
+    return containsTokens(msg, 'inscrição', 'disciplinas');
+}
+
+function checkBilheteUnico(msg) {
+    return containsTokens(msg, 'bilhete', 'unico');
 }
 
 function containsTokens(str, ...tokens) {
