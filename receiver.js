@@ -132,16 +132,20 @@ function receivedMessage(event) {
     var messageText = message.text;
     var messageAttachments = message.attachments;
 
-    if (messageText) {
+    if(messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-        if (checkCardapio(messageText)) {
+        if(checkCardapio(messageText)) {
             sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
-        else if (checkInicioCalendarioAcademico(messageText)) {
+        else if(checkInicioCalendarioAcademico(messageText)) {
             sendHandler.sendTextMessage(senderID, "Calendário");
         }
-
+        else if(checkWifi(messageText)) {
+            sendHandler.sendTextMessage(senderID, "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!"); 
+            sendHandler.sendTextMessage(senderID, "WI-FI1: SENHA 1");
+            sendHandler.sendTextMessage(senderID, "WI-FI2: SENHA 2");
+        }
         else {
             sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
         }
@@ -170,11 +174,15 @@ module.exports = {
 }
 
 function checkCardapio(msg) {
-    return removePunctuation(removeAccents(msg)).includes('cardapio');
+    return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
 }
 
 function checkInicioCalendarioAcademico(msg) {
     return containsTokens(msg, 'calendario', 'academico');
+}
+
+function checkWifi(msg) {
+    return removePunctuation(removeAccents(msg)).toLowerCase().includes('wi-fi');
 }
 
 function containsTokens(str, ...tokens) {
