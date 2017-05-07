@@ -174,6 +174,10 @@ function checkInicioCalendarioAcademico(msg) {
     return containsTokens(msg, 'calendario', 'academico');
 }
 
+function checkWifi(msg) {
+    return remocePunctuation(removeAccents(msg)).includes('wi-fi');
+}
+
 function containsTokens(str, ...tokens) {
     str = removePunctuation(removeAccents(str.toLowerCase()));
     words = str.split(' ');
