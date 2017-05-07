@@ -135,9 +135,16 @@ function receivedMessage(event) {
             sendHandler.sendTextMessage(senderID, "Calendário");
         }
         else if(checkWifi(messageText)) {
-            sendHandler.sendTextMessage(senderID, "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!"); 
-            sendHandler.sendTextMessage(senderID, "WI-FI1: SENHA 1");
-            sendHandler.sendTextMessage(senderID, "WI-FI2: SENHA 2");
+            reesponse = [
+                "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!",
+                "WI-FI1: SENHA 1",
+                "WI-FI2: SENHA 2"
+            ];
+            sendHandler.sendTextMessage(senderID, response, 0); 
+            
+        }
+        else if(checkTrancamento(messageText)) {
+            sendHandler.sendTextMessage(senderID, "Bzzzom. O período de trancamento de disciplinas de 2017/1 vai de 20/03 a 31/03!");
         }
         else {
             sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
@@ -175,7 +182,11 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function checkWifi(msg) {
-    return removePunctuation(removeAccents(msg)).toLowerCase().includes('wi-fi');
+    return removePunctuation(removeAccents(msg)).toLowerCase().strike.replace(/[\-]/, '').includes('wi-fi');
+}
+
+function checkTrancamento(msg) {
+    return containsTokens(msg, 'trancamento', 'disciplinas');
 }
 
 function containsTokens(str, ...tokens) {
