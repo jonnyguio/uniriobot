@@ -1,4 +1,6 @@
 const verifyToken = process.env.VERIFYTOKEN;
+const receiveHandler = require('./receiver');
+const sendHandler = require('./sender');
 
 module.exports = function(app) {
 
