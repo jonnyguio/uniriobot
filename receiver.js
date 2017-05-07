@@ -53,7 +53,6 @@ function getMenu(senderID, day, turn) {
         }
         else if (day == 'semana') {
             for (var k = 1; k < 6; k++) {
-                sendString = '';
                 sendString += DOWS_NAMES[k] + '\n';
                 sendString += 'ALMOÇO\n';
                 sendString += 'Prato principal:' + result[2][k] + '\n';
@@ -72,6 +71,7 @@ function getMenu(senderID, day, turn) {
                 sendString += 'Vegetal não-folhoso:' + result[18][k] + '\n';
                 sendString += 'Refresco:' + result[19][k] + '\n';
                 sendHandler.sendTextMessage(senderID, sendString);
+                sendString = '';
             }
         }
 
