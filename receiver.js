@@ -18,10 +18,6 @@ const DOWS_NAMES = {
 function formatSendMenu(data, day, turn) {
     var send = '';
     var meal = turn + 2;
-    console.log(data[meal][day]);
-    console.log(data[meal]);
-    console.log(meal);
-    console.log(day);
     send += 'Prato principal:' + data[meal][day] + '\n';
     send += 'Prato vegetariano:' + data[meal][day] + '\n';
     send += 'Guarnição:' + data[meal][day] + '\n';
