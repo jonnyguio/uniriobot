@@ -11,7 +11,9 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "csvtojson": "^1.1.5",
+    "consign": "^0.1.4",
     "express": "^4.15.2",
+    "pg": "^6.1.5",
     "request": "^2.81.0"
   }
 }

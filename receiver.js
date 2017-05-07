@@ -55,6 +55,7 @@ function receivedPostback(event) {
                 getMenu(dow, 'almoço');
             getMenu(dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
+            // sendHandler.sendTodayMessage(SenderID, timeOfPostback);
             break;
         case 'button-cardapio-amanha':
             getMenu(dow, 'almoço');
