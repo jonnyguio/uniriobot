@@ -130,10 +130,10 @@ function receivedMessage(event) {
     if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-        if (checkCardapio()) {
+        if (checkCardapio(messageText)) {
             sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
-        else if (checkInicioCalendarioAcademico()) {
+        else if (checkInicioCalendarioAcademico(messageText)) {
             sendHandler.sendTextMessage("Calendário");
         }
         
