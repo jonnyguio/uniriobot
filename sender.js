@@ -123,10 +123,10 @@ function sendGradeMessage(senderID) {
                     var k = 0;
                     parsedBody["content"].forEach(function(element) {
                         if (element['media_final']) {
-                            sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ', média: ' + element['media_final'];
                         }
                         else {
-                            sendString[k] = element['nome_ativ_curric'] + 'não lançada ou duplicada.';
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ' não lançada ou duplicada.';
                         }
                         k++;
                     });
