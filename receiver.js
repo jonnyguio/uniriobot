@@ -155,6 +155,9 @@ function receivedMessage(event) {
         else if(checkBilheteUnico(messageText)) {
             sendHandler.sendBilheteUnico(senderID);
         }
+        else if(checkRooms(messageText)) {
+            sendHandler.sendRoomsMessage(senderID);
+        }
         else {
             sendHandler.sendTextMessage(senderID, staticMessages.erro);
         }
@@ -184,6 +187,10 @@ module.exports = {
 
 function checkCardapio(msg) {
     return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
+}
+
+function checkRooms(msg) {
+    return containsTokens(msg, 'salas');
 }
 
 function checkInicioCalendarioAcademico(msg) {

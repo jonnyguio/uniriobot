@@ -1,8 +1,15 @@
 const request = require('request');
 const pg = require('pg');
 const staticMessages = require('./messages.js');
-
+const removePunctuation = require('remove-punctuation');
+const removeAccents = require('diacritics').remove;
 const pageToken = process.env.PAGETOKEN;
+
+const API_UNIRIO_URL = 'http://sistemas.unirio.br/api_teste/'
+const API_UNIRIO_KEY = '744b3341f5f629a9560992f42b086494d4cb0b7a1b56a77c08240b8be97c7cb7ff3342c7034f5172761239b2943253e3'
+const TABELA_ALUNOS = 'V_ALUNOS_ATIVOS';
+const TABELA_NOTAS = 'V_NOTAS_FINAIS_ALUNOS_DISCIPLINAS';
+
 
 const DOWS = {
     SUNDAY: 0,
@@ -85,9 +92,41 @@ function sendTextMessage(recipientId, messageText, elementID) {
 }
 
 function sendRoomsMessage(senderID) {
+    var parsedBody, studentFName = '', studentLName = '', id_pessoa;
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
-            console.log('body:', body); // Print the HTML for the Google homepage.
+            console.log('got facebook name')
+            parsedBody = JSON.parse(body);
+            studentFName += parsedBody["first_name"];
+            studentLName += parsedBody["last_name"];
+            request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
+            function (err, res, body) {
+                console.log('got everyone name');
+                parsedBody = JSON.parse(body);
+                parsedBody["content"].every(function(element) {
+                    if (containsTokens(element["nome"], studentFName, studentLName)) {
+                        console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
+                        id_pessoa = element['id_pessoa'];
+                        return false;
+                    }
+                    return true;
+                }, this);
+                console.log('iterate through every name');
+                if (!id_pessoa)
+                    id_pessoa = 14548
+                request.get(API_UNIRIO_URL + TABELA_NOTAS + '?API_KEY=' + API_UNIRIO_KEY + '&id_pessoa=' + id_pessoa + '&ano=2009',
+                function (err, res, body) {
+                    console.log('got grades');
+                    parsedBody = JSON.parse(body);
+                    sendString = []
+                    var k = 0;
+                    parsedBody["content"].forEach(function(element) {
+                        sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                        k++;
+                    });
+                    sendTextMessage(senderID, sendString);
+                });
+            });
         });
 }
 
@@ -295,4 +334,15 @@ module.exports = {
     sendMenuMessage: sendMenuMessage,
     sendRoomsMessage: sendRoomsMessage,
     sendBilheteUnico: sendBilheteUnico
+}
+
+function containsTokens(str, ...tokens) {
+    str = removePunctuation(removeAccents(str.toLowerCase()));
+    words = str.split(' ');
+    for(tok of tokens) {
+        if(!(words.includes(tok.toLowerCase())))
+            return false;
+    }
+
+    return true;
 }
