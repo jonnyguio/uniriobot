@@ -110,7 +110,7 @@ function receivedPostback(event) {
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio da semana");
             break;
         case staticMessages["bilhete-unico"].button.postback:
-            sendHandler.sendTextMessage(senderID, staticMessages["bilhete-unico"]["postback-message"], 0);
+            sendHandler.sendTextMessage(senderID, staticMessages["bilhete-unico"]["button"]["postback-message"], 0);
             break;
         default:
             sendHandler.sendTextMessage(senderID, "Postback called");
