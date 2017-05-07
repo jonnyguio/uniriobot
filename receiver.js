@@ -136,7 +136,7 @@ function receivedMessage(event) {
             sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
         else if (checkInicioCalendarioAcademico(messageText)) {
-            sendHandler.sendTextMessage("Calendário");
+            sendHandler.sendTextMessage(senderID, "Calendário");
         }
         
 
