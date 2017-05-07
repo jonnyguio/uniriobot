@@ -94,11 +94,13 @@ function sendRoomsMessage(senderID) {
     var parsedBody, studentFName = '', studentLName = '', id_pessoa;
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
+            console.log('got facebook name')
             parsedBody = JSON.parse(body);
             studentFName += parsedBody["first_name"];
             studentLName += parsedBody["last_name"];
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
+                console.log('got everyone name');
                 parsedBody = JSON.parse(body);
                 parsedBody["content"].every(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
@@ -106,11 +108,14 @@ function sendRoomsMessage(senderID) {
                         id_pessoa = element['id_pessoa'];
                         return false;
                     }
+                    return true;
                 }, this);
+                console.log('iterate through every name');
                 if (!id_pessoa)
                     id_pessoa = 14548
                 request.get(API_UNIRIO_URL + TABELA_NOTAS + '?API_KEY=' + API_UNIRIO_KEY + '&id_pessoa=' + id_pessoa + '&ano=2009',
                 function (err, res, body) {
+                    console.log('got grades');
                     parsedBody = JSON.parse(body);
                     sendString = []
                     var k = 0;
