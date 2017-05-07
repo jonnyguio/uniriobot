@@ -1,6 +1,6 @@
 module.exports = {
     "erro": "Foi mal, não entendi o que você quis dizer. Nenhuma dessas palavras é uma palavra-chave!",
-    "obrigado": ["De nada!",
+    "obrigado": "De nada!",
     "ajuda": [
         "Abaixo estão as minhas funcionalidades atuais. Para utilizá-las, basta digitar o que está em colchetes. Eu entendo algumas variações, mas não força a barra (eu sou esperto mas nem tanto!).",
         "\t[WiFi]: mostra todas as senhas de wi-fi públicos.\n\t[Período]: informações sobre datas dos períodos desse ano: início e término, trancamento, inscrição...\n\t[Calendario]: datas do Calendário Acadêmico de 2017.\n\t[TrancamentoDisciplinas]: informações variadas sobre o Trancamento de Disciplinas.\n\t[InscricaoDisciplinas]: informações variadas sobre a Inscrição em Disciplinas.\n\t[BilheteUnico]: procedimentos de como cadastrar seu Bilhete Único Universitário.",
