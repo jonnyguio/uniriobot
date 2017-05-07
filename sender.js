@@ -91,13 +91,13 @@ function sendTextMessage(recipientId, messageText, elementID) {
 function sendRoomsMessage(senderID) {
     var studentFName = '', studentLName = '';
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
-        function (error, response, body) {
-            studentFName += body["first_name"]
-            studentLName += body["last_name"];
+        function (error, response, body1) {
+            studentFName += body1["first_name"]
+            studentLName += body1["last_name"];
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
-            function (err, res, body) {
-                console.log(body.content);
-                body.content.forEach(function(element) {
+            function (err, res, body2) {
+                console.log(body2[0]);
+                body2[0].forEach(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
                         console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
                         // procura sala aqui //
