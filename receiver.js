@@ -112,7 +112,6 @@ function receivedPostback(event) {
         case staticMessages["bilhete-unico"].button.postback:
             sendHandler.sendTextMessage(senderID, staticMessages["bilhete-unico"]["postback-message"], 0);
             break;
-        case 
         default:
             sendHandler.sendTextMessage(senderID, "Postback called");
     }
