@@ -71,6 +71,7 @@ function getMenu(senderID, day, turn) {
                 sendString += 'Vegetal não-folhoso:' + result[18][k] + '\n';
                 sendString += 'Refresco:' + result[19][k] + '\n';
             }
+            console.log(sendString);
             sendHandler.sendTextMessage(senderID, sendString);
             sendString = '';
         }
