@@ -18,8 +18,10 @@ const DOWS_NAMES = {
 function formatSendMenu(data, day, turn) {
     var send = '';
     var meal = turn + 2;
+    console.log(data[meal][day]);
     console.log(data[meal]);
     console.log(meal);
+    console.log(day);
     send += 'Prato principal:' + data[meal][day] + '\n';
     send += 'Prato vegetariano:' + data[meal][day] + '\n';
     send += 'Guarnição:' + data[meal][day] + '\n';
@@ -130,10 +132,10 @@ function receivedMessage(event) {
     if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-        if (checkCardapio()) {
+        if (checkCardapio(messageText)) {
             sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
-        else if (checkInicioCalendarioAcademico()) {
+        else if (checkInicioCalendarioAcademico(messageText)) {
             sendHandler.sendTextMessage("Calendário");
         }
         
@@ -161,11 +163,11 @@ module.exports = {
 }
 
 function checkCardapio(msg) {
-    return msg.contains('cardapio');
+    return msg.includes('cardapio');
 }
 
 function checkInicioCalendarioAcademico(msg) {
-    return constainsTokens(msg, 'calendario', 'academico');
+    return containsTokens(msg, 'calendario', 'academico');
 }
 
 function containsTokens(str, ...tokens) {
