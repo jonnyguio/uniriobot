@@ -1,5 +1,6 @@
 module.exports = {
     "erro": "Foi mal, não entendi o que você quis dizer. Nenhuma dessas palavras é uma palavra-chave!",
+    "greeting": "Olá, meu nome é Uninho, o ChatBot da UNIRIO! Posso ajudá-lo com diversas informações sobre a universidade! Digite ‘ajuda’ para receber todas as funcionalidades.",
     "obrigado": ["De nada!",
     "ajuda": [
         "Abaixo estão as minhas funcionalidades atuais. Para utilizá-las, basta digitar o que está em colchetes. Eu entendo algumas variações, mas não força a barra (eu sou esperto mas nem tanto!).",
