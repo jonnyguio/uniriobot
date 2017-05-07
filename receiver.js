@@ -6,6 +6,8 @@ const csv = require('csvtojson');
 const request = require('request');
 const staticMessages = require('./messages.js');
 
+const URL_SHEET_CARDAPIO = 'https://docs.google.com/spreadsheets/d/1bPcJ7WzXUbgnBrQTFFBOJWKP_WJPJpt0tICD0b6X-fQ/pub?gid=0&single=true&output=csv' 
+
 const DOWS_NAMES = {
     0: "Domingo",
     1: "Segunda",
@@ -40,7 +42,7 @@ function getMenu(senderID, day, turn) {
     result = []
     var i = 0;
     csv()
-    .fromStream(request.get('https://docs.google.com/spreadsheets/d/1bPcJ7WzXUbgnBrQTFFBOJWKP_WJPJpt0tICD0b6X-fQ/pub?gid=0&single=true&output=csv'))
+    .fromStream(request.get(URL_SHEET_CARDAPIO))
     .on('csv',(csvRow)=>{
         // console.log(csvRow);
         // csvRow is an array 
