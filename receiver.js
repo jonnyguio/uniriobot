@@ -175,7 +175,7 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function checkWifi(msg) {
-    return remocePunctuation(removeAccents(msg)).includes('wi-fi');
+    return removePunctuation(removeAccents(msg)).includes('wi-fi');
 }
 
 function containsTokens(str, ...tokens) {
