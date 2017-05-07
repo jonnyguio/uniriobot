@@ -210,7 +210,7 @@ function checkTrancamento(msg) {
 }
 
 function checkInscricao(msg) {
-    return containsTokens(msg, 'inscrição') &&
+    return containsTokens(msg, 'inscricao') &&
      (containsTokens('disciplinas') || containsTokens('disciplina')) ;
 }
 
