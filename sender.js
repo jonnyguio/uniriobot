@@ -209,8 +209,8 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
                 payload: {
                     template_type: "generic",
                     elements: [{
-                        title: "Cardapio",
-                        subtitle: "Cardapio do Bandejão da UNIRIO",
+                        title: "Cardápio Bandejão UNIRIO",
+                        subtitle: "Ziom! Vejo que quer acessar o cardápio do bandejão. Qual dia você deseja acessar?",
                         buttons: usedButton
                     }]
                 }
