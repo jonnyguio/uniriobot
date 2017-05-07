@@ -40,7 +40,7 @@ function sendTextMessage(recipientId, messageText) {
                     id: recipientId
                 },
                 message: {
-                    text: messageText.substring(i * 640, (i + 1) * 640)
+                    text: messageText
                 }
             };
 
