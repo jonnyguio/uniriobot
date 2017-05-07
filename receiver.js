@@ -97,8 +97,8 @@ function receivedPostback(event) {
             // sendHandler.sendTodayMessage(SenderID, timeOfPostback);
             break;
         case 'button-cardapio-amanha':
-            getMenu(senderID, dow, 'almoço');
-            getMenu(senderID, dow, 'jantar');
+            getMenu(senderID, dow + 1, 'almoço');
+            getMenu(senderID, dow + 1, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
             break;
         case 'button-cardapio-semana':
