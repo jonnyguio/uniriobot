@@ -2,6 +2,12 @@ const request = require('request');
 const pg = require('pg');
 const pageToken = process.env.PAGETOKEN;
 
+const API_UNIRIO_URL = 'http://sistemas.unirio.br/api_teste/'
+const API_UNIRIO_KEY = '744b3341f5f629a9560992f42b086494d4cb0b7a1b56a77c08240b8be97c7cb7ff3342c7034f5172761239b2943253e3'
+const TABELA_ALUNOS = 'V_ALUNOS_ATIVOS';
+const TABELA_NOTAS = 'V_NOTAS_FINAIS_ALUNOS_DISCIPLINAS';
+
+
 const DOWS = {
     SUNDAY: 0,
     MONDAY: 1,
@@ -83,9 +89,24 @@ function sendTextMessage(recipientId, messageText, elementID) {
 }
 
 function sendRoomsMessage(senderID) {
+    var studentFName = '', studentLName = '';
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
-            console.log('body:', body); // Print the HTML for the Google homepage.
+            studentFName += body["first_name"]
+            studentLName += body["last_name"];
+            request.get(API_UNIRIO_URL + TABELA_ALUNOS, 
+            function (err, res, body) {
+                body["content"].array.forEach(function(element) {
+                    if (containsTokens(element["nome"], studentFName, studentLName)) {
+                        console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
+                        // procura sala aqui //
+                    }
+                    else {
+                        console.log(studentFName + studentLName + ' não tá seu fdp');
+                    }
+                }, this);
+                
+            });
         });
 }
 
@@ -261,4 +282,15 @@ module.exports = {
     sendGenericMessage: sendGenericMessage,
     sendMenuMessage: sendMenuMessage,
     sendRoomsMessage: sendRoomsMessage
+}
+
+function containsTokens(str, ...tokens) {
+    str = removePunctuation(removeAccents(str.toLowerCase()));
+    words = str.split(' ');
+    for(tok of tokens) {
+        if(!(words.includes(tok.toLowerCase())))
+            return false;
+    }
+
+    return true;
 }
