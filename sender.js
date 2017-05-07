@@ -83,7 +83,7 @@ function sendTextMessage(recipientId, messageText, elementID) {
 }
 
 function sendRoomsMessage(senderID) {
-    request.post('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
+    request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
             console.log('body:', body); // Print the HTML for the Google homepage.
         });
