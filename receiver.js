@@ -60,9 +60,9 @@ function getMenu(senderID, day, turn) {
             for (var k = 1; k < 6; k++) {
                 sendString += DOWS_NAMES[k] + '\n';
                 sendString += '\nALMOÇO\n\n';
-                sendString += formatSendMenu(result, day, 0);
+                sendString += formatSendMenu(result, k, 0);
                 sendString += '\nJANTAR\n\n';
-                sendString += formatSendMenu(result, day, 10);
+                sendString += formatSendMenu(result, k, 10);
                 sendHandler.sendTextMessage(senderID, sendString);
                 sendString = '';
             }
