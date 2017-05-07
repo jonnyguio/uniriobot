@@ -67,7 +67,7 @@ function getMenu(senderID, day, turn) {
                 string += 'Refresco:' + result[19][k] + '\n';
             }
         }
-        sendHandler.sendTextMessage(senderID, string);
+        sendHandler.sendTextMessage(senderID, sendString);
     })
 
 }
