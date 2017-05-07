@@ -164,6 +164,9 @@ function receivedMessage(event) {
         else if(checkAjuda(messageText)) {
             sendHandler.sendTextMessage(senderID, staticMessages.ajuda, 0);
         }
+        else if(checkObrigado(messageText)) {
+            sendHandler.sendTextMessage(senderID, staticMessages.obrigado);
+        }
         else {
             sendHandler.sendTextMessage(senderID, staticMessages.erro);
         }
@@ -222,6 +225,10 @@ function checkBilheteUnico(msg) {
 
 function checkAjuda(msg) {
     return containsTokens(msg, 'ajuda');
+}
+
+function checkObrigado(msg) {
+    return containsTokens(msg, 'obrigado');
 }
 
 function containsTokens(str, ...tokens) {
