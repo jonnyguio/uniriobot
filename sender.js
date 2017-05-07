@@ -50,7 +50,7 @@ function sendTextMessage(recipientId, messageText, elementID) {
             callSendAPI(messageData);
         }
     }
-    else if (typeof(messageText) == 'array' && elementID < messageText.length) {
+    else if (typeof(messageText) == 'object' && elementID < messageText.length) {
         var messageData = {
             recipient: {
                 id: recipientId
