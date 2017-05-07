@@ -1,4 +1,6 @@
 const sendHandler = require('./sender')
+const removeAccents = require('diacritics').remove;
+const removePonctuation = require('remove-ponctuation');
 
 function receivedPostback(event) {
     var senderID = event.sender.id;
@@ -52,18 +54,26 @@ function receivedMessage(event) {
 
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-        switch (messageText) {
-            case 'generic':
-                sendHandler.sendGenericMessage(senderID);
-                break;
-            
-            case 'cardapio':
-                sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
-                break;
-
-            default:
-                sendHandler.sendTextMessage(senderID, messageText);
+        if (checkCardapio()) {
+            sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
         }
+        else if (checkInicioCalendarioAcademico()) {
+            //
+        }
+        
+
+        // switch (messageText) {
+        //     case 'generic':
+        //         sendHandler.sendGenericMessage(senderID);
+        //         break;
+            
+        //     case 'cardapio':
+        //         sendHandler.sendMenuMessage(senderID, messageText, timeOfMessage);
+        //         break;
+
+        //     default:
+        //         sendHandler.sendTextMessage(senderID, messageText);
+        // }
     } else if (messageAttachments) {
         sendHandler.sendTextMessage(senderID, "Message with attachment received");
     }
@@ -72,4 +82,23 @@ function receivedMessage(event) {
 module.exports = {
     receivedMessage: receivedMessage,
     receivedPostback: receivedPostback
+}
+
+function checkCardapio(msg) {
+    return msg.contains('cardapio');
+}
+
+function checkInicioCalendarioAcademico(msg) {
+    return constainsTokens(msg, 'calendario', 'academico');
+}
+
+function containsTokens(str, ...tokens) {
+    str = str.toLowerCase().removeAccents().removePonctuation();
+    words = str.split(' ');
+    for(tok of tokens) {
+        if(!(words.includes(tok.toLowerCase())))
+            return false;
+    }
+
+    return true;
 }
