@@ -138,6 +138,10 @@ function receivedMessage(event) {
         else if (checkInicioCalendarioAcademico(messageText)) {
             sendHandler.sendTextMessage(senderID, "Calendário");
         }
+
+        else {
+            sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
+        }
         
 
         // switch (messageText) {
