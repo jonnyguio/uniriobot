@@ -14,14 +14,15 @@ const DOWS_NAMES = {
 
 function formatSendMenu(data, day, turn) {
     var send = '';
-    console.log(data);
-    send += 'Prato principal:' + data[2 + turn][day] + '\n';
-    send += 'Prato vegetariano:' + data[3 + turn][day] + '\n';
-    send += 'Guarnição:' + data[4 + turn][day] + '\n';
-    send += 'Arroz branco, feijão preto, arroz integral:' + data[5 + turn][day] + '\n';
-    send += 'Vegetal folhoso:' + data[7 + turn][day] + '\n';
-    send += 'Vegetal não-folhoso:' + data[8 + turn][day] + '\n';
-    send += 'Refresco:' + data[9 + turn][day] + '\n';
+    var meal = turn + 2;
+    console.log(meal);
+    send += 'Prato principal:' + data[meal][day] + '\n';
+    send += 'Prato vegetariano:' + data[meal][day] + '\n';
+    send += 'Guarnição:' + data[meal][day] + '\n';
+    send += 'Arroz branco, feijão preto, arroz integral:' + data[meal][day] + '\n';
+    send += 'Vegetal folhoso:' + data[meal][day] + '\n';
+    send += 'Vegetal não-folhoso:' + data[meal][day] + '\n';
+    send += 'Refresco:' + data[meal][day] + '\n';
     return send;
 }
 
@@ -52,9 +53,9 @@ function getMenu(senderID, day, turn) {
         else if (day == 'semana') {
             for (var k = 1; k < 6; k++) {
                 sendString += DOWS_NAMES[k] + '\n';
-                sendString += 'ALMOÇO\n';
+                sendString += '\nALMOÇO\n\n';
                 sendString += formatSendMenu(result, day, 10);
-                sendString += 'JANTAR\n';
+                sendString += '\nJANTAR\n\n';
                 sendString += formatSendMenu(result, day, 10);
                 sendHandler.sendTextMessage(senderID, sendString);
                 sendString = '';
