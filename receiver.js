@@ -5,15 +5,13 @@ const removePunctuation = require('remove-punctuation');
 const csv = require('csvtojson');
 const request = require('request');
 
-const pageToken = process.env.PAGETOKEN;
-
 const DOWS_NAMES = {
     0: "Domingo",
-    1: "Segunda-feira",
-    2: "Terça-feira",
-    3: "Quarta-feira",
-    4: "Quinta-feira",
-    5: "Sexta-feira",
+    1: "Segunda",
+    2: "Terça",
+    3: "Quarta",
+    4: "Quinta",
+    5: "Sexta",
     6: "Sábado"
 }
 
@@ -64,10 +62,10 @@ function getMenu(senderID, day, turn) {
         else if (day == 'semana') {
             var sendString = [];
             for (var k = 0; k < 10; k += 2) {
-                sendString[k] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + ' ===\n';
+                sendString[k] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + '-FEIRA ===\n';
                 sendString[k] += '= ALMOÇO = \n\n';
                 sendString[k] += formatSendMenu(result, k / 2 + 1, 0);
-                sendString[k+1] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + ' ===\n';
+                sendString[k+1] = '=== ' + (DOWS_NAMES[k / 2 + 1]).toUpperCase() + '-FEIRA ===\n';
                 sendString[k+1] += '= JANTAR = \n\n';
                 sendString[k+1] += formatSendMenu(result, k / 2 + 1, 10);
             }
@@ -158,8 +156,8 @@ function receivedMessage(event) {
         else if(checkInscricao(messageText)) {
             sendHandler.sendTextMessage(senderID, "Bshawww. O período de inscrição em disciplinas de 2017/1 vai de 29/02 a 06/03!");
         }
-        else if(checkRooms(messageText)) {
-            sendHandler.sendRoomsMessage(senderID);
+        else if(checkBilheteUnico(messageText)) {
+            sendHandler.sendBilheteUnico(senderID);
         }
         else {
             sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
@@ -192,12 +190,8 @@ function checkCardapio(msg) {
     return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
 }
 
-function checkRooms(msg) {
-    return containsTokens(msg, 'salas');
-}
-
 function checkInicioCalendarioAcademico(msg) {
-    return containsTokens(msg, 'calendario', 'academico');
+    return containsTokens(msg, 'calendario');
 }
 
 function checkWifi(msg) {
@@ -205,11 +199,13 @@ function checkWifi(msg) {
 }
 
 function checkTrancamento(msg) {
-    return containsTokens(msg, 'trancamento', 'disciplinas');
+    return containsTokens(msg, 'trancamento') && 
+     (containsTokens(msg, 'disciplina') || containsTokens(msg, 'disciplinas'));
 }
 
 function checkInscricao(msg) {
-    return containsTokens(msg, 'inscrição', 'disciplinas');
+    return containsTokens(msg, 'inscrição') &&
+     (constainsTokens('disciplinas') || containsTokens('disciplina')) ;
 }
 
 function checkBilheteUnico(msg) {
