@@ -32,17 +32,15 @@ module.exports = {
     ],
     "bilhete-unico": {
         "message": "O que deseja saber quanto ao Bilhete Único Universitário?",
-        "button": [
-            {
-                "label": "Cadastramento",
-                "postback": "button-cadastramento",
-                "postback-message": [
-                    "Para cadastrar seu bilhete único universitário, você precisa de diversos documentos. Veja em mais detalhes em https://www.cartaoriocard.com.br/rcc/gratuidade/legislacaopasselivre.",
-                    "Os documentos que a universidade pode te fornecer são:\n* Comprovante de Matrícula\n* Certificação de Previsão de Conclusão de Curso",
-                    "Estes dois documentos podem ser obtidos no SIE. Eles devem ser impressos por você e levados na secretaria: peça a um funcionário para assinar, carimbar e timbrar os seus documentos. Não se esqueça de pedir para timbrar! É o carimbo de alto-relevo (sem ele, podem decidir encrencar com você na Central do Riocard).",
-                ]
-            },
-        ]
+        "button": {
+            "label": "Cadastramento",
+            "postback": "button-cadastramento",
+            "postback-message": [
+                "Para cadastrar seu bilhete único universitário, você precisa de diversos documentos. Veja em mais detalhes em https://www.cartaoriocard.com.br/rcc/gratuidade/legislacaopasselivre.",
+                "Os documentos que a universidade pode te fornecer são:\n* Comprovante de Matrícula\n* Certificação de Previsão de Conclusão de Curso",
+                "Estes dois documentos podem ser obtidos no SIE. Eles devem ser impressos por você e levados na secretaria: peça a um funcionário para assinar, carimbar e timbrar os seus documentos. Não se esqueça de pedir para timbrar! É o carimbo de alto-relevo (sem ele, podem decidir encrencar com você na Central do Riocard).",
+            ]
+        }
     }
     
 }
