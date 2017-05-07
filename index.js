@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const csvToJson = require('csvtojson')
-const https = require('https')
+const csvToJson = require('csvtojson');
+const https = require('https');
 
 const receiveHandler = require('./receiver');
-const sendHandler = require('./sender')
+const sendHandler = require('./sender');
 const app = express();
 
 var consign = require('consign');
