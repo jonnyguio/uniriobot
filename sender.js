@@ -98,13 +98,12 @@ function sendGradeMessage(senderID) {
             parsedBody = JSON.parse(body);
             studentFName += parsedBody["first_name"];
             studentLName += parsedBody["last_name"];
-            sendTextMessage(senderID, 'Recuperando as notas do ano atual...');
+            sendTextMessage(senderID, staticMessages["aguardando"]);
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
                 parsedBody = JSON.parse(body);
                 parsedBody["content"].every(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
-                        console.log('achei o id: ' + element['id_pessoa'] + ', procurando notas do aluno...');
                         id_pessoa = element['id_pessoa'];
                         return false;
                     }
