@@ -142,7 +142,7 @@ function receivedMessage(event) {
             sendHandler.sendTextMessage(senderID, "Calendário");
         }
         else if(checkWifi(messageText)) {
-            reesponse = [
+            response = [
                 "Woosh! Esta é a lista de todas as senhas de wi-fi públicas. Dá uma sacada no que você quer!",
                 "WI-FI1: SENHA 1",
                 "WI-FI2: SENHA 2"
