@@ -189,7 +189,7 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function checkWifi(msg) {
-    return removePunctuation(removeAccents(msg)).toLowerCase().strike.replace(/[\-]/, '').includes('wi-fi');
+    return removePunctuation(removeAccents(msg)).toLowerCase().replace(/[\-]/, '').includes('wi-fi');
 }
 
 function checkTrancamento(msg) {
