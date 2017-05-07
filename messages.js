@@ -21,8 +21,8 @@ module.exports = {
          ]
     },
     "calendario": [
-        "Primeiro Período:\nPara alunos de graduação em geral, de 06/03 a 08/07. Para a Faculdade de Arquitetura de Urbanismo e da Escola de Belas Artes, de 31/02 a 08/07",
-        "Segundo Período:\nPara alunos de graduação em geral, incluindo os cursos da Faculdade de Arquitetura e Urbanismo e da Escola de Belas Artes de 31/07 a 09/12",
+        "Primeiro Período:\n\tPara alunos de graduação em geral, de 06/03 a 08/07. Para a Faculdade de Arquitetura de Urbanismo e da Escola de Belas Artes, de 31/02 a 08/07",
+        "Segundo Período:\n\tPara alunos de graduação em geral, incluindo os cursos da Faculdade de Arquitetura e Urbanismo e da Escola de Belas Artes de 31/07 a 09/12",
     ],
     "trancamento": [
         "Bzzzom. O período de trancamento de disciplinas de 2017/1 vai de 20/03 a 31/03! Para trancar disciplinas, você precisa realizar os seguintes procedimentos:",
