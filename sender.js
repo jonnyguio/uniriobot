@@ -289,5 +289,6 @@ module.exports = {
     sendTextMessage: sendTextMessage,
     sendGenericMessage: sendGenericMessage,
     sendMenuMessage: sendMenuMessage,
-    sendRoomsMessage: sendRoomsMessage
+    sendRoomsMessage: sendRoomsMessage,
+    sendBilheteUnico: sendBilheteUnico
 }
