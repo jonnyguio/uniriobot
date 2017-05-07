@@ -25,7 +25,8 @@ function callSendAPI(messageData) {
             var messageId = body.message_id;
 
             console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
-        } else {
+        } 
+        else {
             console.error("Unable to send message.");
             console.error(response);
             console.error(error);
@@ -33,8 +34,10 @@ function callSendAPI(messageData) {
     });  
 }
 
-function sendTextMessage(recipientId, messageText) {
-    if (messageText.length > 0) {
+function sendTextMessage(recipientId, messageText, elementID) {
+    console.log(typeof(messageText));
+    if (typeof(messageText) == 'string') {
+        if (messageText.length > 0) {
             var messageData = {
                 recipient: {
                     id: recipientId
@@ -45,6 +48,37 @@ function sendTextMessage(recipientId, messageText) {
             };
 
             callSendAPI(messageData);
+        }
+    }
+    else if (typeof(messageText) == 'object' && elementID < messageText.length) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText[elementID]
+            }
+        };
+
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: pageToken },
+            method: 'POST',
+            json: messageData
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var recipientId = body.recipient_id;
+                var messageId = body.message_id;
+
+                console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
+                sendTextMessage(recipientId, messageText, elementID + 1);
+            } 
+            else {
+                console.error("Unable to send message.");
+                console.error(response);
+                console.error(error);
+            }
+        });  
     }
 }
 

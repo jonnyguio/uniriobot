@@ -19,12 +19,12 @@ function formatSendMenu(data, day, turn) {
     var send = '';
     var meal = turn + 2;
     send += 'Prato principal:' + data[meal][day] + '\n';
-    send += 'Prato vegetariano:' + data[meal][day] + '\n';
-    send += 'Guarnição:' + data[meal][day] + '\n';
-    send += 'Arroz branco, feijão preto, arroz integral:' + data[meal][day] + '\n';
-    send += 'Vegetal folhoso:' + data[meal][day] + '\n';
-    send += 'Vegetal não-folhoso:' + data[meal][day] + '\n';
-    send += 'Refresco:' + data[meal][day] + '\n';
+    send += 'Prato vegetariano:' + data[meal + 1][day] + '\n';
+    send += 'Guarnição:' + data[meal + 2][day] + '\n';
+    send += 'Arroz branco, feijão preto, arroz integral:' + data[meal + 3][day] + '\n';
+    send += 'Vegetal folhoso:' + data[meal + 5][day] + '\n';
+    send += 'Vegetal não-folhoso:' + data[meal + 6][day] + '\n';
+    send += 'Refresco:' + data[meal + 7][day] + '\n';
     return send;
 }
 
@@ -53,17 +53,17 @@ function getMenu(senderID, day, turn) {
                 sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (day == 'semana') {
-            for (var k = 1; k < 6; k++) {
-                sendString += DOWS_NAMES[k] + '\n';
-                sendString += '\nALMOÇO\n\n';
-                sendString += formatSendMenu(result, k, 0);
-                sendString += '\nJANTAR\n\n';
-                sendString += formatSendMenu(result, k, 10);
-                sendHandler.sendTextMessage(senderID, sendString);
-                sendString = '';
+            var sendString = [];
+            for (var k = 0; k < 10; k += 2) {
+                sendString[k] = DOWS_NAMES[k / 2 + 1] + '\n';
+                sendString[k] += '\nALMOÇO\n\n';
+                sendString[k] += formatSendMenu(result, k / 2 + 1, 0);
+                sendString[k+1] = DOWS_NAMES[k / 2 + 1] + '\n';
+                sendString[k+1] += '\nJANTAR\n\n';
+                sendString[k+1] += formatSendMenu(result, k / 2 + 1, 10);
             }
         }
-        sendHandler.sendTextMessage(senderID, sendString);
+        sendHandler.sendTextMessage(senderID, sendString, 0);
     })
 
 }
