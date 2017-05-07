@@ -91,18 +91,18 @@ function receivedPostback(event) {
             break;
         case 'button-cardapio-hoje':
             if (hour < 15)
-                getMenu(dow, 'almoço');
-            getMenu(dow, 'jantar');
+                getMenu(senderID, dow, 'almoço');
+            getMenu(senderID, dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de hoje");
             // sendHandler.sendTodayMessage(SenderID, timeOfPostback);
             break;
         case 'button-cardapio-amanha':
-            getMenu(dow, 'almoço');
-            getMenu(dow, 'jantar');
+            getMenu(senderID, dow, 'almoço');
+            getMenu(senderID, dow, 'jantar');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio de amanhã");
             break;
         case 'button-cardapio-semana':
-            getMenu('semana');
+            getMenu(senderID, 'semana');
             sendHandler.sendTextMessage(senderID, "Você pediu o cardápio da semana");
             break;
         default:
