@@ -166,7 +166,7 @@ module.exports = {
 }
 
 function checkCardapio(msg) {
-    return msg.includes('cardapio');
+    return removePunctuation(removeAccents(msg)).includes('cardapio');
 }
 
 function checkInicioCalendarioAcademico(msg) {
