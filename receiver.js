@@ -161,7 +161,7 @@ module.exports = {
 }
 
 function checkCardapio(msg) {
-    return msg.contains('cardapio');
+    return msg.includes('cardapio');
 }
 
 function checkInicioCalendarioAcademico(msg) {
