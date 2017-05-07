@@ -106,10 +106,10 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
     if (dow == DOWS.SATURDAY) {
         usedButton = buttonsSaturday;
     }
-    else if (dows == DOWS.FRIDAY) {
+    else if (dow == DOWS.FRIDAY) {
         usedButton = buttonsFriday;
     }
-    else if (dows == DOWS.SUNDAY || hour > 19) {
+    else if (dow == DOWS.SUNDAY || hour > 19) {
         usedButton = buttonsSundayAndAfterDinner;
     }
     else
