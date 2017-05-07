@@ -91,24 +91,34 @@ function sendTextMessage(recipientId, messageText, elementID) {
 }
 
 function sendRoomsMessage(senderID) {
-    var studentFName = '', studentLName = '';
+    var parsedBody, studentFName = '', studentLName = '', id_pessoa;
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
-            studentFName += body["first_name"]
-            studentLName += body["last_name"];
+            parsedBody = JSON.parse(body);
+            studentFName += parsedBody["first_name"];
+            studentLName += parsedBody["last_name"];
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
-                var parsedBody = JSON.parse(body);
+                parsedBody = JSON.parse(body);
                 parsedBody["content"].forEach(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
                         console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
-                        // procura sala aqui //
-                    }
-                    else {
-                        console.log(studentFName + studentLName + ' não tá seu fdp');
+                        id_pessoa = element['id_pessoa'];
+                        break;
                     }
                 }, this);
-                
+                if (!id_pessoa)
+                    id_pessoa = 14548
+                request.get(API_UNIRIO_URL + TABELA_NOTAS + '?API_KEY=' + API_UNIRIO_KEY + '&id_pessoa=' + id_pessoa + '&ano=2009',
+                function (err, res, body) {
+                    parsedBody = JSON.parse(body);
+                    sendString = []
+                    var k = 0;
+                    parsedBody["content"].forEach(function(element) {
+                        sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                        k++;
+                    });
+                });
             });
         });
 }
