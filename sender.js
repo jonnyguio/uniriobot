@@ -13,7 +13,7 @@ const DOWS = {
 }
 pg.defaults.ssl = true;
 
-function callSendAPI(messageData, callback) {
+function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: pageToken },
@@ -25,7 +25,6 @@ function callSendAPI(messageData, callback) {
             var messageId = body.message_id;
 
             console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
-            if (callback) callback();
         } 
         else {
             console.error("Unable to send message.");
@@ -35,8 +34,9 @@ function callSendAPI(messageData, callback) {
     });  
 }
 
-function sendTextMessage(recipientId, messageText, callback) {
-    if (messageText.length > 0) {
+function sendTextMessage(recipientId, messageText, elementID) {
+    if (typeof(messageText) == 'string') {
+        if (messageText.length > 0) {
             var messageData = {
                 recipient: {
                     id: recipientId
@@ -46,7 +46,38 @@ function sendTextMessage(recipientId, messageText, callback) {
                 }
             };
 
-            callSendAPI(messageData, callback);
+            callSendAPI(messageData);
+        }
+    }
+    else if (typeof(messageText) == 'array' && elementID < messageText.length) {
+        var messageData = {
+            recipient: {
+                id: recipientId
+            },
+            message: {
+                text: messageText[elementID]
+            }
+        };
+
+        request({
+            uri: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: { access_token: pageToken },
+            method: 'POST',
+            json: messageData
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var recipientId = body.recipient_id;
+                var messageId = body.message_id;
+
+                console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
+                sendTextMessage(recipientId, messageText, elementID + 1);
+            } 
+            else {
+                console.error("Unable to send message.");
+                console.error(response);
+                console.error(error);
+            }
+        });  
     }
 }
 
