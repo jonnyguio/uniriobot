@@ -228,7 +228,10 @@ function checkAjuda(msg) {
 }
 
 function checkObrigado(msg) {
-    return containsTokens(msg, 'obrigado');
+    return containsTokens(msg, 'obrigado') || 
+           containsTokens(msg, 'valeu') ||
+           containsTokens(msg, 'vlw') ||
+           containsTokens(msg, 'obg');
 }
 
 function containsTokens(str, ...tokens) {
