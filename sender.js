@@ -1,6 +1,7 @@
 const request = require('request');
 const pg = require('pg');
 const removePunctuation = require('remove-punctuation');
+const removeAccents = require('diacritics').remove;
 const pageToken = process.env.PAGETOKEN;
 
 const API_UNIRIO_URL = 'http://sistemas.unirio.br/api_teste/'
