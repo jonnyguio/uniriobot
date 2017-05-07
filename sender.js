@@ -34,7 +34,7 @@ function callSendAPI(messageData) {
 }
 
 function sendTextMessage(recipientId, messageText) {
-    if messageText.length > 0
+    if (messageText.length > 0)
         for (var i = 0; i < messageText.length / 640; i++) {
             var messageData = {
                 recipient: {
