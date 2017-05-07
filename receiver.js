@@ -8,7 +8,7 @@ const DOWS_NAMES = {
     2: "Terça",
     3: "Quarta",
     4: "Quinta",
-    5: "Sábado",
+    5: "Sexta",
     6: "Sábado"
 }
 
@@ -107,6 +107,9 @@ function receivedPostback(event) {
     // let them know it was successful
 }
 
+function tokenize(string) {
+    return string.toLocaleLowerCase().replace(/[^a-zA-Z]/g, "")
+}
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -123,7 +126,7 @@ function receivedMessage(event) {
     var messageAttachments = message.attachments;
 
     if (messageText) {
-
+        messageText = tokenize(messageText);
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
         switch (messageText) {
