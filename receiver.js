@@ -26,45 +26,45 @@ function getMenu(senderID, day, turn) {
     .on('done',(error)=>{
         var sendString = ''
         if (turn === 'almoco') {
-            string += 'Prato principal:' + result[2][day] + '\n';
-            string += 'Prato vegetariano:' + result[3][day] + '\n';
-            string += 'Guarnição:' + result[4][day] + '\n';
-            string += 'Arroz branco, feijão preto, arroz integral:' + result[5][day] + '\n';
-            string += 'Vegetal folhoso:' + result[7][day] + '\n';
-            string += 'Vegetal não-folhoso:' + result[8][day] + '\n';
-            string += 'Refresco:' + result[9][day] + '\n';
+            sendString += 'Prato principal:' + result[2][day] + '\n';
+            sendString += 'Prato vegetariano:' + result[3][day] + '\n';
+            sendString += 'Guarnição:' + result[4][day] + '\n';
+            sendString += 'Arroz branco, feijão preto, arroz integral:' + result[5][day] + '\n';
+            sendString += 'Vegetal folhoso:' + result[7][day] + '\n';
+            sendString += 'Vegetal não-folhoso:' + result[8][day] + '\n';
+            sendString += 'Refresco:' + result[9][day] + '\n';
             // console.log(result[j][day]);
         }
         else if (turn === 'jantar') {
-            string += 'Prato principal:' + result[12][day] + '\n';
-            string += 'Prato vegetariano:' + result[13][day] + '\n';
-            string += 'Guarnição:' + result[14][day] + '\n';
-            string += 'Arroz branco, feijão preto, arroz integral:' + result[15][day] + '\n';
-            string += 'Vegetal folhoso:' + result[17][day] + '\n';
-            string += 'Vegetal não-folhoso:' + result[18][day] + '\n';
-            string += 'Refresco:' + result[19][day] + '\n';
+            sendString += 'Prato principal:' + result[12][day] + '\n';
+            sendString += 'Prato vegetariano:' + result[13][day] + '\n';
+            sendString += 'Guarnição:' + result[14][day] + '\n';
+            sendString += 'Arroz branco, feijão preto, arroz integral:' + result[15][day] + '\n';
+            sendString += 'Vegetal folhoso:' + result[17][day] + '\n';
+            sendString += 'Vegetal não-folhoso:' + result[18][day] + '\n';
+            sendString += 'Refresco:' + result[19][day] + '\n';
             // for (var j = 12; j < 20; j++)
                 // console.log(result[j][day]);
         }
         else if (day == 'semana') {
             for (var k = 1; k < 6; k++) {
-                string += DOWS_NAMES[k] + '\n';
-                string += 'ALMOÇO\n';
-                string += 'Prato principal:' + result[2][k] + '\n';
-                string += 'Prato vegetariano:' + result[3][k] + '\n';
-                string += 'Guarnição:' + result[4][k] + '\n';
-                string += 'Arroz branco, feijão preto, arroz integral:' + result[5][k] + '\n';
-                string += 'Vegetal folhoso:' + result[7][k] + '\n';
-                string += 'Vegetal não-folhoso:' + result[8][k] + '\n';
-                string += 'Refresco:' + result[9][k] + '\n';
-                string += 'JANTAR\n';
-                string += 'Prato principal:' + result[12][k] + '\n';
-                string += 'Prato vegetariano:' + result[13][k] + '\n';
-                string += 'Guarnição:' + result[14][k] + '\n';
-                string += 'Arroz branco, feijão preto, arroz integral:' + result[15][k] + '\n';
-                string += 'Vegetal folhoso:' + result[17][k] + '\n';
-                string += 'Vegetal não-folhoso:' + result[18][k] + '\n';
-                string += 'Refresco:' + result[19][k] + '\n';
+                sendString += DOWS_NAMES[k] + '\n';
+                sendString += 'ALMOÇO\n';
+                sendString += 'Prato principal:' + result[2][k] + '\n';
+                sendString += 'Prato vegetariano:' + result[3][k] + '\n';
+                sendString += 'Guarnição:' + result[4][k] + '\n';
+                sendString += 'Arroz branco, feijão preto, arroz integral:' + result[5][k] + '\n';
+                sendString += 'Vegetal folhoso:' + result[7][k] + '\n';
+                sendString += 'Vegetal não-folhoso:' + result[8][k] + '\n';
+                sendString += 'Refresco:' + result[9][k] + '\n';
+                sendString += 'JANTAR\n';
+                sendString += 'Prato principal:' + result[12][k] + '\n';
+                sendString += 'Prato vegetariano:' + result[13][k] + '\n';
+                sendString += 'Guarnição:' + result[14][k] + '\n';
+                sendString += 'Arroz branco, feijão preto, arroz integral:' + result[15][k] + '\n';
+                sendString += 'Vegetal folhoso:' + result[17][k] + '\n';
+                sendString += 'Vegetal não-folhoso:' + result[18][k] + '\n';
+                sendString += 'Refresco:' + result[19][k] + '\n';
             }
         }
         sendHandler.sendTextMessage(senderID, sendString);
