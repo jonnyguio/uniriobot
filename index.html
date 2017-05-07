@@ -9,17 +9,16 @@
         <title>Unirio Bot</title>
     </head>
     <body>
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top hidden-xs">
           <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Navbar</a>
+            <img id="nav-logo" width="55px" height="55px" src="public/img/logo.png"><a class="navbar-brand" href="#"></a></img>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <img class="logo" id="mlogo" src="public/img/cloud.png" width="50" height="50" alt="">
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,123 +32,89 @@
           </div>
         </nav>
 
-        <div class="container">
+        <main class="container">
             <div class="row">
-
-                <div id="carousel-example-generic" class="carousel slide col-sm-11 col-md-6 col-lg-7" data-ride="carousel">
-                    
+                <div id="carousel-example-generic" class="carousel slide col-sm-12 col-md-6 col-lg-7 hidden-md hidden-lg" data-ride="carousel">
                     <ol id="carousel-indicators-main" class="carousel-indicators">
                         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                         <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                     </ol>
 
-                    <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            
-                            <div class="jumbotron">
-                                <h1>Unirio Bot!</h1>
-                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
-                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
-                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
-                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
-                                    elit exercitation deserunt sunt irure.</p>
-                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-                            </div>
-                        </div>
+                    <div class="jumbotron">
+                        <img width="120px" height="120px" class="bot-picture center-block" src="public/img/logo-dark.png"/>
 
-                        <div class="item">
-                            <div class="jumbotron">
-                                <h1>Unirio Bot!</h1>
-                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
-                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
-                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
-                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
-                                    elit exercitation deserunt sunt irure.</p>
-                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-                            </div>
-                        </div>
+                        <div class="carousel-inner" role="listbox">
                         
-                        <div class="item">
-                            <div class="jumbotron">
-                                <h1>Unirio Bot!</h1>
-                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                            <div class="item active">
+                                <h1 class="text-center">Unirio Bot!</h1>
+                                <p class="text-justify"> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
                                     Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
                                     amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
                                     ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
                                     elit exercitation deserunt sunt irure.</p>
-                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                                <p><a class="btn btn-primary btn-lg center-block" href="#" role="button">View on Github</a></p>
+                            </div>    
+
+                            <div class="item">
+                                <h1 class="text-center">Unirio Bot!</h1>
+                                <p class="text-justify"> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                                    elit exercitation deserunt sunt irure.</p>
+                                <p><a class="btn btn-primary btn-lg center-block" href="#" role="button">View on Github</a></p>
+                            </div>
+                            
+                            <div class="item">
+                                <h1 class="text-center">Unirio Bot!</h1>
+                                <p class="text-justify"> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                                    elit exercitation deserunt sunt irure.</p>
+                                <p><a class="btn btn-primary btn-lg center-block" href="#" role="button">View on Github</a></p>
                             </div>
                         </div>
                     </div>
+                </div>    
+                <div class="jumbotron col-sm-4 col-md-6 col-lg-7 hidden-xs hidden-sm">
+                    <img width="120px" height="120px" class="bot-picture center-block" src="public/img/logo-dark.png"/>
+                    <h1 class="text-center">Unirio Bot!</h1>
+                    <p class="text-justify"> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                        Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                        amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                        ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                        elit exercitation deserunt sunt irure.</p>
+                    <p><a class="btn btn-primary btn-lg center-block" href="#" role="button">View on Github</a></p>
                 </div>
 
                 <div id="mockup" class="col-sm-4 col-md-6 hidden-sm hidden-xs">
                     <img id="mockup-img" src="public/img/print-1.jpeg"></img>
                 </div>
             </div>
-
-            <h1 id="sobre" class="text-center">Sobre o projeto</h1>
             
-            <div id="thumbnail-section" class="row">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img width="200px" height="200px" src="public/img/ic_shopping_cart_black_.svg">
-                        <div class="caption">
-                            <h3 class="text-center">Thumbnail label</h3>
-                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img width="200px" height="200px" src="public/img/ic_record_voice_over_black_.svg">
-                        <div class="caption">
-                            <h3 class="text-center">Thumbnail label</h3>
-                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img width="200px" height="200px" src="public/img/ic_question_answer_black_.svg">
-                        <div class="caption">
-                            <h3 class="text-center">Thumbnail label</h3>
-                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <hr class="my-4">
 
-        <div class="container">
-            <div class="row">
-                <div id="contato" class="jumbotron content">
-                    <h1>Contato!</h1>
-                    <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
-                        Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
-                        amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
-                        ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
-                        elit exercitation deserunt sunt irure.</p>
+            <div class="row hidden-sm hidden-xs">
+                <div id="mockup-landscape" class="col-sm-4 col-md-4">
+                    
+                </div>
+                <div id="functions-text" class="jumbotron col-sm-4 col-md-5 col-lg-6">
+                    <h2>Lorem</h2>
+                    <p>Dolore culpa laboris commodo nisi voluptate aute duis est nostrud elit elit et consequat. Dolor irure ex dolor sunt qui voluptate adipisicing Lorem consequat irure magna anim ad. Aliquip consequat ullamco magna do irure ipsum Lorem mollit et.</p>
                 </div>
             </div>
-            <div class="row">
-                <div id="como-contribuir" class="jumbotron content">
-                    <h1>Como contribuir?</h1>
-                    <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
-                        Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
-                        amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
-                        ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
-                        elit exercitation deserunt sunt irure.</p>
+            <div class="row hidden-sm hidden-xs">
+                <div id="about-text" class="jumbotron col-sm-4 col-md-5 col-lg-6">
+                    <h2>Lorem</h2>
+                    <p>Dolore culpa laboris commodo nisi voluptate aute duis est nostrud elit elit et consequat. Dolor irure ex dolor sunt qui voluptate adipisicing Lorem consequat irure magna anim ad. Aliquip consequat ullamco magna do irure ipsum Lorem mollit et.</p>
+                </div>
+                <div id="mockup-landscape" class="col-sm-4 col-md-4">
+                    
                 </div>
             </div>
-        </div>
-
-        <footer class="footer">
-            <div class="container">
-                <h5>© Copyleft Unirio</h5>
-            </div>
-        </footer>
+        </main>
 
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
