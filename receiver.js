@@ -93,7 +93,7 @@ function receivedPostback(event) {
 
     switch (payload) {
         case 'get-started':
-            sendHandler.sendMenuMessage(senderID);
+            sendHandler.sendTextMessage(senderID, staticMessages.greeting);
             break;
         case 'button-cardapio-hoje':
             if (hour < 15)

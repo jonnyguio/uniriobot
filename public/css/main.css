@@ -1,0 +1,156 @@
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+
+
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+    
+    h1 {
+        font-size: 35pt !important;
+    }
+
+    #mockup {
+        background: center top no-repeat url("../img/mockup.png");
+        width: 467px;
+        height: 800px;
+        background-size: 467px;
+    }
+
+    #mockup-img {
+        width: 100%;
+        height: 100%;
+        padding: 39px;
+        padding-right: 37px;
+        padding-top: 66px; 
+        padding-bottom: 66px;
+    }
+
+    #mockup-landscape {
+        background: center top no-repeat url("../img/mockup-landscape.png");
+        width: 500px;
+        height: 296px;
+        background-size: 500px;
+    }
+
+    #functions-text {
+        margin-left: 50px;
+    }
+
+    #about-text {
+        margin-right: 50px;
+    }
+
+    .navbar-nav a {
+        margin: 5px;
+        color: white !important;
+    }
+
+    .navbar-nav li:hover {
+        background-color: #2B2F59 !important;
+    }
+
+    .navbar-default {
+        background-color: #1A1F48;
+        border-color: #e7e7e7;
+    }
+
+    .content {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #nav-logo {
+        padding: 10px;
+    }
+
+    footer {
+        background-color: #1A1F48;        
+    }
+
+    footer h4 {
+        color: #FFFFFF;
+    }
+
+    .bot-picture {
+        margin-bottom: 40px;
+        margin-top: 20px;
+    }
+
+    .jumbotron p {
+        font-size: 17px;
+    }
+
+    .carousel-inner {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .carousel-indicators li {
+        width: 28px;
+        height: 28px;
+        border-radius: 50px;
+        text-indent: 0;
+        background-color: #0B0E37;
+    }
+    .carousel-indicators .active {
+        width: 28px;
+        height: 28px;
+        background-color: #2B2F59;
+    }
+}
+
+/* Extra !Extra Small Devices, Phones */ 
+@media only screen and (min-width : 280px) {
+    main {
+        margin-top: 30px;
+    }
+
+    #carousel-indicators-main {
+        bottom: -35px;
+    }
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+    main {
+        margin-top: 30px;
+    }
+
+    #carousel-indicators-main {
+        bottom: -35px;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+    .thumbnail {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    main {
+        margin-top: 100px;
+    }
+
+    #carousel-indicators-main {
+        bottom: 5px;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    main {
+        margin-top: 100px;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+    
+}
