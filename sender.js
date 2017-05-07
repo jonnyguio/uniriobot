@@ -124,7 +124,7 @@ function sendRoomsMessage(senderID) {
                         sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
                         k++;
                     });
-                    sendTextMessage(senderID, sendString);
+                    sendTextMessage(senderID, sendString, 0);
                 });
             });
         });
