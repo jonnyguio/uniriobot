@@ -1,7 +1,7 @@
 
 const sendHandler = require('./sender')
 const removeAccents = require('diacritics').remove;
-const removePonctuation = require('remove-ponctuation');
+const removePunctuation = require('remove-punctuation');
 const csv = require('csvtojson');
 const request = require('request');
 
@@ -113,10 +113,6 @@ function receivedPostback(event) {
     // let them know it was successful
 }
 
-function tokenize(string) {
-    return string.toLocaleLowerCase().replace(/[^a-zA-Z]/g, "")
-}
-
 function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -132,7 +128,6 @@ function receivedMessage(event) {
     var messageAttachments = message.attachments;
 
     if (messageText) {
-        messageText = tokenize(messageText);
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
         if (checkCardapio()) {
@@ -174,7 +169,7 @@ function checkInicioCalendarioAcademico(msg) {
 }
 
 function containsTokens(str, ...tokens) {
-    str = str.toLowerCase().removeAccents().removePonctuation();
+    str = str.toLowerCase().removeAccents().removePunctuation();
     words = str.split(' ');
     for(tok of tokens) {
         if(!(words.includes(tok.toLowerCase())))
