@@ -100,11 +100,11 @@ function sendRoomsMessage(senderID) {
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
                 parsedBody = JSON.parse(body);
-                parsedBody["content"].forEach(function(element) {
+                parsedBody["content"].every(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
                         console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
                         id_pessoa = element['id_pessoa'];
-                        break;
+                        return false;
                     }
                 }, this);
                 if (!id_pessoa)
