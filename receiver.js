@@ -34,6 +34,9 @@ function getMenu(senderID, day, turn) {
             sendString += 'Vegetal não-folhoso:' + result[8][day] + '\n';
             sendString += 'Refresco:' + result[9][day] + '\n';
             // console.log(result[j][day]);
+
+            if (sendString.toLocaleLowerCase().includes('feriado'))
+                sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (turn === 'jantar') {
             sendString += 'Prato principal:' + result[12][day] + '\n';
@@ -45,6 +48,8 @@ function getMenu(senderID, day, turn) {
             sendString += 'Refresco:' + result[19][day] + '\n';
             // for (var j = 12; j < 20; j++)
                 // console.log(result[j][day]);
+            if (sendString.toLocaleLowerCase().includes('feriado'))
+                sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (day == 'semana') {
             for (var k = 1; k < 6; k++) {
