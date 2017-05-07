@@ -7,6 +7,7 @@ const request = require('request');
 
 const API_UNIRIO_URL = 'http://sistemas.unirio.br/api_teste'
 const API_UNIRIO_KEY = '744b3341f5f629a9560992f42b086494d4cb0b7a1b56a77c08240b8be97c7cb7ff3342c7034f5172761239b2943253e3'
+const pageToken = process.env.PAGETOKEN;
 
 const DOWS_NAMES = {
     0: "Domingo",
@@ -17,8 +18,6 @@ const DOWS_NAMES = {
     5: "Sexta-feira",
     6: "Sábado"
 }
-
-
 
 function formatSendMenu(data, day, turn) {
     var send = '';
@@ -38,10 +37,6 @@ function formatSendMenu(data, day, turn) {
     send += 'Vegetal não-folhoso: '.toUpperCase() + data[meal + 6][day] + '\n';
     send += 'Refresco: '.toUpperCase() + data[meal + 7][day] + '\n';
     return send;
-}
-
-function getClasses(senderID) {
-
 }
 
 function getMenu(senderID, day, turn) {
@@ -155,6 +150,9 @@ function receivedMessage(event) {
             sendHandler.sendTextMessage(senderID, "WI-FI1: SENHA 1");
             sendHandler.sendTextMessage(senderID, "WI-FI2: SENHA 2");
         }
+        else if(checkRooms(messageText)) {
+            sendHandler.sendRoomsMessage(senderID);
+        }
         else {
             sendHandler.sendTextMessage(senderID, "Desculpe, não entendi o que você quis dizer");
         }
@@ -184,6 +182,10 @@ module.exports = {
 
 function checkCardapio(msg) {
     return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
+}
+
+function checkRooms(msg) {
+    return containsTokens(msg, 'salas');
 }
 
 function checkInicioCalendarioAcademico(msg) {

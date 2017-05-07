@@ -82,6 +82,13 @@ function sendTextMessage(recipientId, messageText, elementID) {
     }
 }
 
+function sendRoomsMessage(senderID) {
+    request.post('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
+        function (error, response, body) {
+            console.log('body:', body); // Print the HTML for the Google homepage.
+        });
+}
+
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {
 
     console.log(timeOfMessage);
@@ -252,5 +259,6 @@ function sendRestOfWeekMessage(senderID, timeOfPostback) {
 module.exports = {
     sendTextMessage: sendTextMessage,
     sendGenericMessage: sendGenericMessage,
-    sendMenuMessage: sendMenuMessage
+    sendMenuMessage: sendMenuMessage,
+    sendRoomsMessage: sendRoomsMessage
 }
