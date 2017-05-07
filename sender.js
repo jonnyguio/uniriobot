@@ -221,11 +221,11 @@ function sendMenuMessage(recipientId, messageText, timeOfMessage) {
 }
 
 function sendBilheteUnico(recipientID) {
-    var button = {
+    var button = [{
         type: 'postback',
         title: staticMessages["bilhete-unico"].button.label,
         payload: staticMessages["bilhete-unico"].button.postback
-    };
+    }];
 
     var message_data = {
         recipient: {
