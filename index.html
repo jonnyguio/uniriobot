@@ -2,9 +2,173 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title></title>
+        <meta name="viewport" content="width=device-width, inital-scale=1"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="public/css/main.css">
+        <title>Unirio Bot</title>
     </head>
     <body>
-        <h1>Hello world</h1>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <img class="logo" id="mlogo" src="public/img/cloud.png" width="50" height="50" alt="">
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-left">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="#como-contribuir">Quero contribuir</a></li>
+                <li role="separator" class="divider"></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+
+                <div id="carousel-example-generic" class="carousel slide col-sm-11 col-md-6 col-lg-7" data-ride="carousel">
+                    
+                    <ol id="carousel-indicators-main" class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            
+                            <div class="jumbotron">
+                                <h1>Unirio Bot!</h1>
+                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                                    elit exercitation deserunt sunt irure.</p>
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="jumbotron">
+                                <h1>Unirio Bot!</h1>
+                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                                    elit exercitation deserunt sunt irure.</p>
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="item">
+                            <div class="jumbotron">
+                                <h1>Unirio Bot!</h1>
+                                <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                                    Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                                    amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                                    ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                                    elit exercitation deserunt sunt irure.</p>
+                                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mockup" class="col-sm-4 col-md-6 hidden-sm hidden-xs">
+                    <img id="mockup-img" src="public/img/print-1.jpeg"></img>
+                </div>
+            </div>
+
+            <h1 id="sobre" class="text-center">Sobre o projeto</h1>
+            
+            <div id="thumbnail-section" class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img width="200px" height="200px" src="public/img/ic_shopping_cart_black_.svg">
+                        <div class="caption">
+                            <h3 class="text-center">Thumbnail label</h3>
+                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img width="200px" height="200px" src="public/img/ic_record_voice_over_black_.svg">
+                        <div class="caption">
+                            <h3 class="text-center">Thumbnail label</h3>
+                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img width="200px" height="200px" src="public/img/ic_question_answer_black_.svg">
+                        <div class="caption">
+                            <h3 class="text-center">Thumbnail label</h3>
+                            <p class="center-block thumbnail-sub-text">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div id="contato" class="jumbotron content">
+                    <h1>Contato!</h1>
+                    <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                        Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                        amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                        ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                        elit exercitation deserunt sunt irure.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div id="como-contribuir" class="jumbotron content">
+                    <h1>Como contribuir?</h1>
+                    <p> Eiusmod ullamco anim dolore Lorem non tempor elit consectetur irure dolore voluptate mollit dolor cillum.
+                        Cillum do enim culpa consequat proident elit veniam est adipisicing. Excepteur proident enim et nostrud 
+                        amet officia magna nulla anim non cillum nostrud. Enim ut excepteur nulla tempor est amet culpa velit 
+                        ad ullamco elit do. Officia ipsum velit esse adipisicing ut excepteur aliquip non do velit sit. Do dolor
+                        elit exercitation deserunt sunt irure.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <h5>© Copyleft Yago Azedias</h5>
+            </div>
+             <div class="container">
+                <div class="text-center center-block social-media">
+                    <a href="https://www.facebook.com/bootsnipp"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+                    <a href="https://twitter.com/bootsnipp"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+                    <a href="https://plus.google.com/+Bootsnipp-page"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+                    <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdn.rawgit.com/yagoazedias/typed.js/master/js/typed.js"></script>
+        <!--<script src="js/main.js"></script>-->
+        <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            Typed.new("#main-text", {
+                strings: ["Spotify.", "Business...", "All Works...", "How it uses Technology at all?"],
+                typeSpeed: 30
+            });
+        });
+        </script>
     </body>
 </html>
