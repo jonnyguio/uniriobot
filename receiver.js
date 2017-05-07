@@ -57,13 +57,13 @@ function getMenu(senderID, day, turn) {
                 sendString += DOWS_NAMES[k] + '\n';
                 sendString += '\nALMOÇO\n\n';
                 sendString += formatSendMenu(result, k, 0);
-                sendHandler.sendTextMessage(senderID, sendString);
-                sendString = '';
-                sendString += DOWS_NAMES[k] + '\n';
-                sendString += '\nJANTAR\n\n';
-                sendString += formatSendMenu(result, k, 10);
-                sendHandler.sendTextMessage(senderID, sendString);
-                sendString = '';
+                sendHandler.sendTextMessage(senderID, sendString, function() {                   
+                    sendString = '';
+                    sendString += DOWS_NAMES[k] + '\n';
+                    sendString += '\nJANTAR\n\n';
+                    sendString += formatSendMenu(result, k, 10);
+                    sendHandler.sendTextMessage(senderID, sendString);
+                });
             }
         }
         sendHandler.sendTextMessage(senderID, sendString);

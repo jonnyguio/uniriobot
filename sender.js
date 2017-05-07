@@ -13,7 +13,7 @@ const DOWS = {
 }
 pg.defaults.ssl = true;
 
-function callSendAPI(messageData) {
+function callSendAPI(messageData, callback) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: pageToken },
@@ -25,6 +25,7 @@ function callSendAPI(messageData) {
             var messageId = body.message_id;
 
             console.log("Successfully sent message with id %s to recipient %s", messageId, recipientId);
+            callback();
         } else {
             console.error("Unable to send message.");
             console.error(response);
@@ -33,7 +34,7 @@ function callSendAPI(messageData) {
     });  
 }
 
-function sendTextMessage(recipientId, messageText) {
+function sendTextMessage(recipientId, messageText, callback) {
     if (messageText.length > 0) {
             var messageData = {
                 recipient: {
@@ -44,7 +45,7 @@ function sendTextMessage(recipientId, messageText) {
                 }
             };
 
-            callSendAPI(messageData);
+            callSendAPI(messageData, callback);
     }
 }
 
