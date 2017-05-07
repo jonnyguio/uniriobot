@@ -224,7 +224,7 @@ function sendBilheteUnico(recipientID) {
     var button = {
         type: 'postback',
         title: staticMessages["bilhete-unico"].button.label,
-        payload: staticMessages["bilhete-unico"].button.postback;
+        payload: staticMessages["bilhete-unico"].button.postback
     };
 
     var message_data = {
