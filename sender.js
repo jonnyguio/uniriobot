@@ -34,8 +34,7 @@ function callSendAPI(messageData) {
 }
 
 function sendTextMessage(recipientId, messageText) {
-    if (messageText.length > 0)
-        for (var i = 0; i < messageText.length / 640; i++) {
+    if (messageText.length > 0) {
             var messageData = {
                 recipient: {
                     id: recipientId
@@ -46,7 +45,7 @@ function sendTextMessage(recipientId, messageText) {
             };
 
             callSendAPI(messageData);
-        }
+    }
 }
 
 function sendMenuMessage(recipientId, messageText, timeOfMessage) {

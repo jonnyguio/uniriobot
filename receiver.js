@@ -74,6 +74,7 @@ function getMenu(senderID, day, turn) {
             console.log(sendString);
             sendHandler.sendTextMessage(senderID, sendString);
             sendString = '';
+            console.log(sendString);
         }
 
         sendHandler.sendTextMessage(senderID, sendString);
