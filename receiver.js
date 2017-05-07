@@ -12,6 +12,18 @@ const DOWS_NAMES = {
     6: "Sábado"
 }
 
+function formatSendMenu(data, day, turn) {
+    var send = '';
+    send += 'Prato principal:' + data[2 + turn][day] + '\n';
+    send += 'Prato vegetariano:' + data[3 + turn][day] + '\n';
+    send += 'Guarnição:' + data[4 + turn][day] + '\n';
+    send += 'Arroz branco, feijão preto, arroz integral:' + data[5 + turn][day] + '\n';
+    send += 'Vegetal folhoso:' + data[7 + turn][day] + '\n';
+    send += 'Vegetal não-folhoso:' + data[8 + turn][day] + '\n';
+    send += 'Refresco:' + data[9 + turn][day] + '\n';
+    return send;
+}
+
 function getMenu(senderID, day, turn) {
     result = []
     var i = 0;
@@ -26,28 +38,13 @@ function getMenu(senderID, day, turn) {
     .on('done',(error)=>{
         var sendString = ''
         if (turn === 'almoco') {
-            sendString += 'Prato principal:' + result[2][day] + '\n';
-            sendString += 'Prato vegetariano:' + result[3][day] + '\n';
-            sendString += 'Guarnição:' + result[4][day] + '\n';
-            sendString += 'Arroz branco, feijão preto, arroz integral:' + result[5][day] + '\n';
-            sendString += 'Vegetal folhoso:' + result[7][day] + '\n';
-            sendString += 'Vegetal não-folhoso:' + result[8][day] + '\n';
-            sendString += 'Refresco:' + result[9][day] + '\n';
             // console.log(result[j][day]);
-
+            sendString = formatSendMenu(result, day, 0);
             if (sendString.toLocaleLowerCase().includes('feriado'))
                 sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
         else if (turn === 'jantar') {
-            sendString += 'Prato principal:' + result[12][day] + '\n';
-            sendString += 'Prato vegetariano:' + result[13][day] + '\n';
-            sendString += 'Guarnição:' + result[14][day] + '\n';
-            sendString += 'Arroz branco, feijão preto, arroz integral:' + result[15][day] + '\n';
-            sendString += 'Vegetal folhoso:' + result[17][day] + '\n';
-            sendString += 'Vegetal não-folhoso:' + result[18][day] + '\n';
-            sendString += 'Refresco:' + result[19][day] + '\n';
-            // for (var j = 12; j < 20; j++)
-                // console.log(result[j][day]);
+            sendString = formatSendMenu(result, day, 10);
             if (sendString.toLocaleLowerCase().includes('feriado'))
                 sendString = DOWS_NAMES[day] + ' é feriado, não funcionará o bandejão.';
         }
@@ -55,26 +52,13 @@ function getMenu(senderID, day, turn) {
             for (var k = 1; k < 6; k++) {
                 sendString += DOWS_NAMES[k] + '\n';
                 sendString += 'ALMOÇO\n';
-                sendString += 'Prato principal:' + result[2][k] + '\n';
-                sendString += 'Prato vegetariano:' + result[3][k] + '\n';
-                sendString += 'Guarnição:' + result[4][k] + '\n';
-                sendString += 'Arroz branco, feijão preto, arroz integral:' + result[5][k] + '\n';
-                sendString += 'Vegetal folhoso:' + result[7][k] + '\n';
-                sendString += 'Vegetal não-folhoso:' + result[8][k] + '\n';
-                sendString += 'Refresco:' + result[9][k] + '\n';
+                sendString += formatSendMenu(result, day, 10);
                 sendString += 'JANTAR\n';
-                sendString += 'Prato principal:' + result[12][k] + '\n';
-                sendString += 'Prato vegetariano:' + result[13][k] + '\n';
-                sendString += 'Guarnição:' + result[14][k] + '\n';
-                sendString += 'Arroz branco, feijão preto, arroz integral:' + result[15][k] + '\n';
-                sendString += 'Vegetal folhoso:' + result[17][k] + '\n';
-                sendString += 'Vegetal não-folhoso:' + result[18][k] + '\n';
-                sendString += 'Refresco:' + result[19][k] + '\n';
+                sendString += formatSendMenu(result, day, 10);
                 sendHandler.sendTextMessage(senderID, sendString);
                 sendString = '';
             }
         }
-
         sendHandler.sendTextMessage(senderID, sendString);
     })
 
