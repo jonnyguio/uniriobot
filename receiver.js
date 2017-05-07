@@ -158,8 +158,8 @@ function receivedMessage(event) {
         else if(checkBilheteUnico(messageText)) {
             sendHandler.sendBilheteUnico(senderID);
         }
-        else if(checkRooms(messageText)) {
-            sendHandler.sendRoomsMessage(senderID);
+        else if(checkGrades(messageText)) {
+            sendHandler.sendGradeMessage(senderID);
         }
         else if(checkAjuda(messageText)) {
             sendHandler.sendTextMessage(senderID, staticMessages.ajuda, 0);
@@ -195,8 +195,8 @@ function checkCardapio(msg) {
     return removePunctuation(removeAccents(msg)).toLowerCase().includes('cardapio');
 }
 
-function checkRooms(msg) {
-    return containsTokens(msg, 'salas');
+function checkGrades(msg) {
+    return containsTokens(msg, 'notas') || containsTokens(msg, 'media') || containsTokens(msg, 'medias');
 }
 
 function checkInicioCalendarioAcademico(msg) {

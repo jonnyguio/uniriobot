@@ -91,38 +91,44 @@ function sendTextMessage(recipientId, messageText, elementID) {
     }
 }
 
-function sendRoomsMessage(senderID) {
-    var parsedBody, studentFName = '', studentLName = '', id_pessoa;
+function sendGradeMessage(senderID) {
+    var parsedBody, studentFName = '', studentLName = '', id_pessoa, ano;
     request.get('https://graph.facebook.com/v2.6/' + senderID + '?fields=first_name,last_name&access_token=' + pageToken,
         function (error, response, body) {
-            console.log('got facebook name')
             parsedBody = JSON.parse(body);
             studentFName += parsedBody["first_name"];
             studentLName += parsedBody["last_name"];
-            sendTextMessage(senderID, 'Recuperando dados...');
+            sendTextMessage(senderID, 'Recuperando as notas do ano atual...');
             request.get(API_UNIRIO_URL + TABELA_ALUNOS + '?API_KEY=' + API_UNIRIO_KEY, 
             function (err, res, body) {
-                console.log('got everyone name');
                 parsedBody = JSON.parse(body);
                 parsedBody["content"].every(function(element) {
                     if (containsTokens(element["nome"], studentFName, studentLName)) {
-                        console.log('achei o id: ' + element['id_pessoa'] + ', procurando salas do aluno...');
+                        console.log('achei o id: ' + element['id_pessoa'] + ', procurando notas do aluno...');
                         id_pessoa = element['id_pessoa'];
                         return false;
                     }
                     return true;
                 }, this);
-                console.log('iterate through every name');
-                if (!id_pessoa)
+                if (!id_pessoa) {
                     id_pessoa = 14548
+                    ano = 2009
+                }
+                else {
+                    ano = (new Date()).getFullYear()
+                }
                 request.get(API_UNIRIO_URL + TABELA_NOTAS + '?API_KEY=' + API_UNIRIO_KEY + '&id_pessoa=' + id_pessoa + '&ano=2009',
                 function (err, res, body) {
-                    console.log('got grades');
                     parsedBody = JSON.parse(body);
                     var sendString = []
                     var k = 0;
                     parsedBody["content"].forEach(function(element) {
-                        sendString[k] = element['nome_ativ_curric'] + ', média: ' + element['media_final'];
+                        if (element['media_final']) {
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ', média: ' + element['media_final'];
+                        }
+                        else {
+                            sendString[k] = element['nome_ativ_curric'].replace(/\s+/g, ' ').trim() + ' não lançada ou duplicada.';
+                        }
                         k++;
                     });
                     sendTextMessage(senderID, sendString, 0);
@@ -333,7 +339,7 @@ module.exports = {
     sendTextMessage: sendTextMessage,
     sendGenericMessage: sendGenericMessage,
     sendMenuMessage: sendMenuMessage,
-    sendRoomsMessage: sendRoomsMessage,
+    sendGradeMessage: sendGradeMessage,
     sendBilheteUnico: sendBilheteUnico
 }
 
